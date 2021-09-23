@@ -1,0 +1,61 @@
+// Curso: EL-5617 Trabajo final de graduación
+// Tecnologico de Costa Rica (www.tec.ac.cr)
+// Desarrollador:
+// Alonso Vega-Badilla (alonso_v_@estudiantec.cr)
+// Este script esta estructurado en System Verilog
+// Proposito General:
+// Librería de tests para un bus paralelo parametrizable
+
+`include "bus_tb.sv"
+
+// Base Test
+class bus_base_test extends uvm_test;
+
+    `uvm_component_utils(bus_base_test)
+
+    bus_tb bus_tb0;
+    uvm_table_printer printer;
+    bit test_pass = 1;
+
+    function new(string name = "bus_base_test", 
+        uvm_component parent=null);
+        super.new(name,parent);
+    endfunction : new
+
+    virtual function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        // Enable transaction recording for everything
+        uvm_config_db#(int)::set(this, "*", "recording_detail", UVM_FULL);
+        // Create the tb
+        bus_tb0 = bus_tb::type_id::create("bus_tb0", this);
+        // Create a specific depth printer for printing the created topology
+        printer = new();
+        printer.knobs.depth = 3;
+    endfunction : build_phase
+
+    function void end_of_elaboration_phase(uvm_phase phase);
+        `uvm_info(get_type_name(),
+        $sformatf("Printing the test topology :\n%s", this.sprint(printer)), UVM_LOW)
+    endfunction : end_of_elaboration_phase
+
+    task run_phase(uvm_phase phase);
+        //set a drain-time for the environment if desired
+        phase.phase_done.set_drain_time(this, 50);
+    endtask : run_phase
+
+    function void extract_phase(uvm_phase phase);
+        if(bus_tb0.scoreboard0.sbd_error)
+        test_pass = 1'b0;
+    endfunction // void
+
+    function void report_phase(uvm_phase phase);
+        if(test_pass) begin
+        `uvm_info(get_type_name(), "** UVM TEST PASSED **", UVM_NONE)
+        end
+        else begin
+        `uvm_error(get_type_name(), "** UVM TEST FAIL **")
+        end
+    endfunction
+
+endclass : bus_base_test
+
