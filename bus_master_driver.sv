@@ -68,7 +68,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
   
 	// get_and_drive 
 	virtual protected task get_and_drive();
-		
+      $display("Get and drive initialized");
 		@(negedge vif.reset);
 		forever begin
 			@(posedge vif.clock);
@@ -97,64 +97,63 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 
 
 	// drive_transfer
-  virtual protected task drive_transfer (bus_transfer transaction);
+  	virtual protected task drive_transfer (bus_transfer transaction);
 		
 		
 		$display("[%g] El driver fue inicializado",$time);
-    if (transaction.retardo > 0) begin
-      repeat(transaction.retardo) @(posedge vif.clock);
+		if (transaction.retardo > 0) begin
+			repeat(transaction.retardo) @(posedge vif.clock);
 		end
 
 		foreach(D_out[i,j]) begin
-  			fork
-              forever @(posedge vif.clock) begin
-  			 		if (vif.pop[i][j]) begin
+			fork
+				forever @(posedge vif.clock) begin
+					if (vif.pop[i][j]) begin
 						D_out[i][j].pop_front;
 						if(D_out[i][j].size()==0)
 							vif.pndng[i][j]<=0;
-  			 		end
-  			 	end
-              forever @(posedge vif.clock) begin
+					end
+				end
+				forever @(posedge vif.clock) begin
 					vif.D_pop[i][j]<=D_out[i][j][0];
 				end
-  			 join_none
-  		end
+				join_none
+		end
 
-        @(posedge vif.clock);
+		@(posedge vif.clock);
 		forever begin
 			vif.reset=0;
 
-            `uvm_info(get_full_name(), $sformatf("Transfer collected :\n%s", trans_collected.sprint()), UVM_MEDIUM)
-          item_collected_port.write(transaction);
-
-          case(transaction.tipo)
+			`uvm_info(get_full_name(), $sformatf("Transfer collected :\n%s", trans_collected.sprint()), UVM_MEDIUM)
+			
+			case(transaction.tipo)
 				broadcast:begin
 					foreach (D_out[i]) begin
 						foreach (D_out[i][j]) begin
 							disp=i*drvrs+j;
-                          if (disp!=transaction.Origen) begin
-                            D_out[i][j].push_back(transaction.dato);
+							if (disp!=transaction.Origen) begin
+							D_out[i][j].push_back(transaction.dato);
 								vif.pndng[i][j]<=1;
 							end 
 						end
 					end
-	     			transaction.print("Driver: Transaccion ejecutada");
+					transaction.print("Driver: Transaccion ejecutada");
 				end
 
 				trans:begin
 
-                  if (transaction.Origen>=drvrs) begin
+					if (transaction.Origen>=drvrs) begin
 						i=1;
 						j=transaction.Origen-drvrs;
 					end else begin
 						i=0;
 						j=transaction.Origen;
 					end
-                  	
-                  D_out[i][j].push_back(transaction.dato); //Agregamos el dato enviado en la fifo out del origen
+					
+					D_out[i][j].push_back(transaction.dato); //Agregamos el dato enviado en la fifo out del origen
 					vif.pndng[i][j]<=1;
 					transaction.tiempo = $realtime;
-	     			transaction.print("Driver: Transaccion ejecutada");
+					transaction.print("Driver: Transaccion ejecutada");
 				end
 
 				reset:begin
@@ -165,10 +164,11 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 
 				default:begin
 					$display("[%g] Driver Error: la transacción recibida no tiene tipo valido",$time);
-	   	 			$finish;
+					$finish;
 				end
 			endcase // trans.tipo
-          @(posedge vif.clock);
+			item_collected_port.write(transaction);
+			@(posedge vif.clock);
 		end
 
 

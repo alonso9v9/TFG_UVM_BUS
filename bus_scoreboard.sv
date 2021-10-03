@@ -40,8 +40,8 @@ class bus_scoreboard extends uvm_scoreboard;
 
     //build_phase
     function void build_phase(uvm_phase phase);
-        monitor_item_collected_export = new("item_collected_export", this);
-      	driver_item_collected_export = new("item_collected_export", this);
+      monitor_item_collected_export = new("monitor_item_collected_export", this);
+      driver_item_collected_export = new("driver_item_collected_export", this);
     endfunction
 
     // write

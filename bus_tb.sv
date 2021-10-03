@@ -44,7 +44,7 @@ class bus_tb extends uvm_env;
     endfunction : build_phase
 
     function void connect_phase(uvm_phase phase);
-        // Connect slave0 monitor to scoreboard
+        
       bus0.slave_agent.monitor.item_collected_port.connect(scoreboard0.monitor_item_collected_export);
       
       bus0.master_agent.driver.item_collected_port.connect(scoreboard0.driver_item_collected_export);

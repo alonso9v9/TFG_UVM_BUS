@@ -45,7 +45,6 @@ class bus_env extends uvm_env;
     // build_phase
     function void build_phase(uvm_phase phase);
         string inst_name;
-    //    set_phase_domain("uvm");
         super.build_phase(phase);
         if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});

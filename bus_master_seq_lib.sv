@@ -42,75 +42,33 @@ virtual class bus_base_sequence extends uvm_sequence #(bus_transfer);
 
 endclass
 
+class random_sequence extends bus_base_sequence;
 
-/*
-//------------------------------------------------------------------------------
-//
-// SEQUENCE: read_byte
-//
-//------------------------------------------------------------------------------
-rand int retardo;
-rand bit [pckg_sz-1:0] dato;
-realtime tiempo;
-rand tipo_acc tipo;
-int max_retardo;
-rand bit [7:0] Origen;
-rand bit [7:0] Destino;
-
-class read_byte_seq extends bus_base_sequence;
-
-    function new(string name="read_byte_seq");
-        super.new(name);
+    `uvm_object_utils(random_sequence)
+    
+    function new(string name="random_sequence");
+      super.new(name);
     endfunction
+    
+    
+  
+    rand int retardo;
+    int iter;
 
-    `uvm_object_utils(read_byte_seq)
+    constraint retardo_ct { (retardo <= 10); }
 
-    rand bit [15:0] start_addr;
-    rand int unsigned transmit_del = 0;
-    constraint transmit_del_ct { (transmit_del <= 10); }
-
+  
     virtual task body();
-        `uvm_do_with(req, 
-            req.addr == start_addr;
-            req.read_write == READ;
-            req.size == 1;
-            req.error_pos == 1000;
-            req.transmit_delay == transmit_del; } )
-        get_response(rsp);
-        `uvm_info(get_type_name(), $sformatf("%s read : addr = `x%0h, data[0] = `x%0h", get_sequence_path(), rsp.addr, rsp.data[0]), UVM_HIGH);
+
+        repeat (100) begin
+            `uvm_do_with(req, 
+            { req.tipo == trans;
+            req.retardo == retardo;} )
+            get_response(rsp);
+            //`uvm_info(get_type_name(),
+            //$sformatf(), UVM_HIGH);
+        end 
+
     endtask
-
-endclass : read_byte_seq
-
-
-//------------------------------------------------------------------------------
-//
-// SEQUENCE: read_half_word_seq
-//
-//------------------------------------------------------------------------------
-
-class read_half_word_seq extends bus_base_sequence;
-
-    function new(string name="read_half_word_seq");
-        super.new(name);
-    endfunction
-
-    `uvm_object_utils(read_half_word_seq)
-
-    rand bit [15:0] start_addr;
-    rand int unsigned transmit_del = 0;
-    constraint transmit_del_ct { (transmit_del <= 10); }
-
-    virtual task body();
-        `uvm_do_with(req, 
-        { req.addr == start_addr;
-            req.read_write == READ;
-            req.size == 2;
-            req.error_pos == 1000;
-            req.transmit_delay == transmit_del; } )
-        get_response(rsp);
-        `uvm_info(get_type_name(),
-        $sformatf("%s read : addr = `x%0h, data[0] = `x%0h, data[1] = `x%0h", get_sequence_path(), rsp.addr, rsp.data[0], rsp.data[1]), UVM_HIGH);
-    endtask
-
-endclass : read_half_word_seq */ 
+    
+  endclass : random_sequence

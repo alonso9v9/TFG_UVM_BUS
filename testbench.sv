@@ -36,7 +36,7 @@ module bus_tb_top;
 
     initial begin
         uvm_config_db#(virtual bus_if)::set(uvm_root::get(), "*", "vif", vif);
-        run_test();
+        run_test("test_comun_case");
     end
 
     initial begin

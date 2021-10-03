@@ -45,13 +45,6 @@ class bus_transfer #(parameter pckg_sz =16,parameter drvrs=4,parameter broadcast
 
   	function new(string name = "bus_transfer_inst");
 		super.new(name);
-        this.retardo=0;
-		this.dato=0;
-		this.tiempo=0;
-		this.tipo=trans;
-		this.max_retardo=10;
-		this.Origen=0;
-		this.Destino=this.dato[pckg_sz-1:pckg_sz-8];
 	endfunction
 
 	function void print (string tag = "");
