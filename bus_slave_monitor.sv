@@ -88,14 +88,17 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
             end else
             begin
                 foreach(vif.push[i,j]) begin
+                automatic int a_i,a_j;
+                a_i=i;
+                a_j=j;
                 fork
                     forever @(posedge vif.clock) begin              
                     if (vif.reset) begin
                         transaction.tipo=reset;
-                        D_in[0][i].push_back(vif.D_push[0][i]);
+                      D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
                         $display("[%g] Operación completada",$time);
                         transaction.tiempo=$time;
-                        transaction.dato=D_in[0][i].pop_front;
+                      transaction.dato=D_in[a_i][a_j].pop_front;
                         item_collected_port.write(transaction);
 
                         `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
@@ -103,12 +106,12 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                         item_collected_port.write(transaction);
                     end else 
                     begin
-                        if (vif.push[0][i]) begin
+                      if (vif.push[a_i][a_j]) begin
                             transaction.tipo=trans;
-                            D_in[0][i].push_back(vif.D_push[0][i]);
+                        D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
                             $display("[%g] Operación completada",$time);
                             transaction.tiempo=$time;
-                            transaction.dato=D_in[0][i].pop_front;
+                        transaction.dato=D_in[a_i][a_j].pop_front;
                             item_collected_port.write(transaction);
 
                             `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)

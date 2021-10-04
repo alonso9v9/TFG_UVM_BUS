@@ -26,8 +26,8 @@ class bus_env extends uvm_env;
     bit intf_checks_enable = 1; 
     bit intf_coverage_enable = 1;
 	
-    bus_master_agent master_agent;
-    bus_slave_agent slave_agent;
+    bus_master_agent master_agent0;
+    bus_slave_agent slave_agent0;
 
     // Provide implementations of virtual methods such as get_type_name and create
     `uvm_component_utils_begin(bus_env)
@@ -49,9 +49,9 @@ class bus_env extends uvm_env;
         if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
         
-        master_agent = bus_master_agent::type_id::create(inst_name, this);
+        master_agent0 = bus_master_agent::type_id::create(inst_name, this);
         
-        slave_agent = bus_slave_agent::type_id::create(inst_name, this);
+        slave_agent0 = bus_slave_agent::type_id::create(inst_name, this);
 
     endfunction : build_phase
 

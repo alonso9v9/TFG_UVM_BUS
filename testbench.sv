@@ -37,6 +37,7 @@ module bus_tb_top;
     initial begin
         uvm_config_db#(virtual bus_if)::set(uvm_root::get(), "*", "vif", vif);
         run_test("test_comun_case");
+      	
     end
 
     initial begin
@@ -48,7 +49,9 @@ module bus_tb_top;
     end
 
     //Generate Clock
-    always
+    always begin
+      $display("Clock");
         #5 vif.clock = ~vif.clock;
+    end
 
 endmodule

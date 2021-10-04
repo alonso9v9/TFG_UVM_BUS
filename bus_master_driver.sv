@@ -106,16 +106,19 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 		end
 
 		foreach(D_out[i,j]) begin
+          	automatic int a_i, a_j;
+          	a_i=i;
+          	a_j=j;
 			fork
 				forever @(posedge vif.clock) begin
-					if (vif.pop[i][j]) begin
-						D_out[i][j].pop_front;
-						if(D_out[i][j].size()==0)
-							vif.pndng[i][j]<=0;
+					if (vif.pop[a_i][a_j]) begin
+						D_out[a_i][a_j].pop_front;
+						if(D_out[a_i][a_j].size()==0)
+							vif.pndng[a_i][a_j]<=0;
 					end
 				end
 				forever @(posedge vif.clock) begin
-					vif.D_pop[i][j]<=D_out[i][j][0];
+					vif.D_pop[a_i][a_j]<=D_out[a_i][a_j][0];
 				end
 				join_none
 		end
@@ -128,12 +131,12 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 			
 			case(transaction.tipo)
 				broadcast:begin
-					foreach (D_out[i]) begin
-						foreach (D_out[i][j]) begin
+					foreach (D_out[a_i]) begin
+						foreach (D_out[a_i][a_j]) begin
 							disp=i*drvrs+j;
 							if (disp!=transaction.Origen) begin
-							D_out[i][j].push_back(transaction.dato);
-								vif.pndng[i][j]<=1;
+							D_out[a_i][a_j].push_back(transaction.dato);
+								vif.pndng[a_i][a_j]<=1;
 							end 
 						end
 					end
