@@ -38,10 +38,10 @@ class bus_base_test extends uvm_test;
         $sformatf("Printing the test topology :\n%s", this.sprint(printer)), UVM_LOW)
     endfunction : end_of_elaboration_phase
 
-    task run_phase(uvm_phase phase);
+    //task run_phase(uvm_phase phase);
         //set a drain-time for the environment if desired
-        phase.phase_done.set_drain_time(this, 50);
-    endtask : run_phase
+        //phase.phase_done.set_drain_time(this, 50);
+    //endtask : run_phase
 
     function void extract_phase(uvm_phase phase);
         if(bus_tb0.scoreboard0.sbd_error)
@@ -73,7 +73,7 @@ class test_comun_case extends bus_base_test;
 
         seq = random_sequence::type_id::create("seq");
         
-        //uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
