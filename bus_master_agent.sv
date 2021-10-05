@@ -40,9 +40,7 @@ class bus_master_agent extends uvm_agent;
 
     // connect_phase
     function void connect_phase(uvm_phase phase);
-        if(get_is_active() == UVM_ACTIVE) begin
-            driver.seq_item_port.connect(sequencer.seq_item_export);
-        end
+        driver.seq_item_port.connect(sequencer.seq_item_export);
     endfunction : connect_phase
 
 endclass : bus_master_agent

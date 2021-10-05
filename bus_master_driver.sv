@@ -31,7 +31,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 
     // The following property holds the transaction information currently
     // begin captured (by the collect_address_phase and data_phase methods). 
-    protected bus_transfer trans_collected;
+    protected bus_transfer transaction;
 
 
 	// Provide implmentations of virtual methods such as get_type_name and create
@@ -43,7 +43,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 	function new (string name, uvm_component parent);
 
 		super.new(name, parent);
-		trans_collected = new();
+		transaction = new();
 		item_collected_port = new("item_collected_port", this);
 
 	endfunction : new
@@ -127,7 +127,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 		forever begin
 			vif.reset=0;
 
-			`uvm_info(get_full_name(), $sformatf("Transfer collected :\n%s", trans_collected.sprint()), UVM_MEDIUM)
+			`uvm_info(get_full_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_MEDIUM)
 			
 			case(transaction.tipo)
 				broadcast:begin
