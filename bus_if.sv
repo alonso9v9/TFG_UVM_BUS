@@ -9,10 +9,6 @@
 
 interface bus_if #(parameter pckg_sz = 16, parameter drvrs = 4, parameter bits = 1);
 
-  //Flags
-  bit                has_checks = 1;
-  bit                has_coverage = 1;
-  
   //Signals
 	logic clock;
 	logic reset;
