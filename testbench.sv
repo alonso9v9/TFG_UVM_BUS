@@ -24,13 +24,13 @@ module bus_tb_top;
 
     bs_gnrtr_n_rbtr dut(
       
-      vif.clock,
-      vif.reset,
-      vif.pndng,
-      vif.pop,
-      vif.D_pop,
-      vif.push,
-      vif.D_push
+      .clock(vif.clock),
+      .reset(vif.reset),
+      .pndng(vif.pndng),
+      .pop(vif.pop),
+      .D_pop(vif.D_pop),
+      .push(vif.push),
+      .D_push(vif.D_push),
 
     );
 
