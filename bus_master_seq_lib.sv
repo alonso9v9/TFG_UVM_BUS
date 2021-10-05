@@ -59,15 +59,14 @@ class random_sequence extends bus_base_sequence;
 
   
     virtual task body();
-
+        $display("SEQUENCE BODY");
         repeat (100) begin
             `uvm_do_with(req, 
             { req.tipo == trans;
             req.retardo == retardo;} )
             get_response(rsp);
             $display("[SEQUENCE] Item sent to driver");
-            //`uvm_info(get_type_name(),
-            //$sformatf(), UVM_HIGH);
+            `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
         end 
 
     endtask
