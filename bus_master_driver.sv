@@ -73,6 +73,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 		@(negedge vif.reset);
 		forever begin
 			@(posedge vif.clock);
+            $display("[DRIVER] Getting new item");
 			seq_item_port.get_next_item(req);
 			$cast(rsp, req.clone());
 			rsp.set_id_info(req);
