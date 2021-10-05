@@ -50,7 +50,6 @@ module bus_tb_top;
 
     //Generate Clock
     always begin
-      $display("Clock");
         #5 vif.clock = ~vif.clock;
     end
 

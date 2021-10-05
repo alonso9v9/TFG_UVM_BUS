@@ -65,6 +65,7 @@ class random_sequence extends bus_base_sequence;
             { req.tipo == trans;
             req.retardo == retardo;} )
             get_response(rsp);
+            $display("[SEQUENCE] Item sent to driver");
             //`uvm_info(get_type_name(),
             //$sformatf(), UVM_HIGH);
         end 

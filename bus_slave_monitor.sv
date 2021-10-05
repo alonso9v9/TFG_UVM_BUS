@@ -64,7 +64,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
             void'(this.begin_tr(transaction));
 
 
-            $display("[%g] el monitor esta enviado el dato al checker",$time);        
+            $display("[%g] el monitor esta enviado el dato al scoreboard",$time);        
             espera = 0;
             @(posedge vif.clock);
 
@@ -82,7 +82,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                     end
                 end
                 item_collected_port.write(transaction);
-                $display("[%g] Operación completada",$time);
+                $display("[MONITOR] [%g] Operación completada",$time);
                 transaction.tiempo=$time;
                 transaction.print("Monitor: Transaccion enviada al checker");
             end else
@@ -96,7 +96,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                     if (vif.reset) begin
                         transaction.tipo=reset;
                       D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                        $display("[%g] Operación completada",$time);
+                        $display("[MONITOR] [%g] Operación completada",$time);
                         transaction.tiempo=$time;
                       transaction.dato=D_in[a_i][a_j].pop_front;
                         item_collected_port.write(transaction);
@@ -109,7 +109,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                       if (vif.push[a_i][a_j]) begin
                             transaction.tipo=trans;
                         D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                            $display("[%g] Operación completada",$time);
+                            $display("[MONITOR][%g] Operación completada",$time);
                             transaction.tiempo=$time;
                         transaction.dato=D_in[a_i][a_j].pop_front;
                             item_collected_port.write(transaction);

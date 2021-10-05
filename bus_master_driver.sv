@@ -68,7 +68,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
   
 	// get_and_drive 
 	virtual protected task get_and_drive();
-      $display("Get and drive initialized");
+      $display("[DRIVER] Get and drive initialized");
 		@(negedge vif.reset);
 		forever begin
 			@(posedge vif.clock);
@@ -100,7 +100,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
   	virtual protected task drive_transfer (bus_transfer transaction);
 		
 		
-		$display("[%g] El driver fue inicializado",$time);
+		$display("[DRIVER] [%g] El driver fue inicializado",$time);
 		if (transaction.retardo > 0) begin
 			repeat(transaction.retardo) @(posedge vif.clock);
 		end
@@ -166,7 +166,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 				end
 
 				default:begin
-					$display("[%g] Driver Error: la transacción recibida no tiene tipo valido",$time);
+					$display("[DRIVER] [%g] Driver Error: la transacción recibida no tiene tipo valido",$time);
 					$finish;
 				end
 			endcase // trans.tipo

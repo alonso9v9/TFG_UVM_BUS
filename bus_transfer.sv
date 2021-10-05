@@ -48,7 +48,7 @@ class bus_transfer #(parameter pckg_sz =16,parameter drvrs=4,parameter broadcast
 	endfunction
 
 	function void print (string tag = "");
-		$display("[%g] %s Tipo=%s Tiempo=%g Retardo=%g dato=0x%h Origen=0x%h Destino=0x%h",$time,tag,this.tipo,this.tiempo,this.retardo,
+		$display("[TRANSFER PRINT][%g] %s Tipo=%s Tiempo=%g Retardo=%g dato=0x%h Origen=0x%h Destino=0x%h",$time,tag,this.tipo,this.tiempo,this.retardo,
 			this.dato,this.Origen,this.Destino);
 	endfunction
 endclass
