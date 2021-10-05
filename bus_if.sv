@@ -27,10 +27,6 @@ interface bus_if #(parameter pckg_sz = 16, parameter drvrs = 4, parameter bits =
 
   // Coverage and assertions
 
-  always @(negedge clock)
-  begin
-    
-  end
 
 //////////////ASSERTIONS//////////////
 endinterface : bus_if
