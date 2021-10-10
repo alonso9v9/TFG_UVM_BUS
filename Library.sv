@@ -1019,5 +1019,5 @@ module bs_gnrtr_n_rbtr #(parameter bits = 1,parameter drvrs = 4, parameter pckg_
 	      end
 	    end
 	  endgenerate
-	endmodule
+endmodule
 

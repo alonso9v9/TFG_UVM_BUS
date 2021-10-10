@@ -24,10 +24,8 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 	// The virtual interface used to drive and view HDL signals.
 	protected virtual bus_if vif;
 
-	// Master Id
-	protected int master_id;
 
-  uvm_analysis_port #(bus_transfer) item_collected_port;
+    uvm_analysis_port #(bus_transfer) item_collected_port;
 
     // The following property holds the transaction information currently
     // begin captured (by the collect_address_phase and data_phase methods). 
@@ -36,7 +34,6 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 
 	// Provide implmentations of virtual methods such as get_type_name and create
 	`uvm_component_utils_begin(bus_master_driver)
-	`uvm_field_int(master_id, UVM_DEFAULT)
 	`uvm_component_utils_end
 
 	// new - constructor
