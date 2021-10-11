@@ -156,7 +156,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                 
                 D_out[i][j].push_back(transaction.dato); //Agregamos el dato enviado en la fifo out del origen
                 vif.pndng[i][j]<=1;
-                vif.D_pop[i][j]<=D_out[i][j][0];
+                //vif.D_pop[i][j]<=D_out[i][j][0];
                 transaction.tiempo = $realtime;
                 transaction.print("Driver: Transaccion ejecutada");
             end
