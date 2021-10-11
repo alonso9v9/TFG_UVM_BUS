@@ -98,7 +98,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                         Destino = vif.D_pop[a_i][a_j][pckg_sz-1:pckg_sz-8];
 
                         $display("Dato enviado: %h",vif.D_pop[a_i][a_j]);
-                        transaction.dato<=vif.D_pop[a_i][a_j];
+                        transaction.dato=vif.D_pop[a_i][a_j];
                         transaction.print("GOLDEN");
 
                         dest_i=Destino/drvrs;
