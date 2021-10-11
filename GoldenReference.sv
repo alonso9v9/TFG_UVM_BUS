@@ -65,6 +65,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                         for (int j=0; j<drvrs; ++j) begin
                             if (vif.pndng[i][j]) begin
                                 turn[i][j].put(1);
+                                $display("Turno dado a %d %d",i,j);
                                 busy=1;
                                 break;
                             end
