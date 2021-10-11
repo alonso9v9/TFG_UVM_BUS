@@ -31,7 +31,7 @@ class bus_slave_agent extends uvm_agent;
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         monitor = bus_slave_monitor::type_id::create("monitor", this);
-        gldnref = bus_slave_gldnref::type_id::create("gldnref", this);
+        gldnref = GoldenReference::type_id::create("gldnref", this);
     endfunction : build_phase
 
 
