@@ -89,6 +89,8 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                 forever @(posedge vif.clock) begin
                     if (vif.pndng[a_i][a_j]) begin
 
+                        #1;
+
                         void'(this.begin_tr(transaction));
                         
                         turn[a_i][a_j].get(1);
