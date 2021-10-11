@@ -90,6 +90,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                     if (vif.pndng[a_i][a_j]) begin
                         
                         turn[i][j].get(1);
+                        $display("Turno recibido %d %d",i,j);
                         
                         //Mandar dato a destino
                         Destino = vif.D_pop[i][j][pckg_sz-1:pckg_sz-8];
