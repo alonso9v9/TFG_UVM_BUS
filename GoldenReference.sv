@@ -93,14 +93,14 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                         $display("Turno recibido %d %d",a_i,a_j);
                         
                         //Mandar dato a destino
-                        Destino = vif.D_pop[i][j][pckg_sz-1:pckg_sz-8];
+                        Destino = vif.D_pop[a_i][a_j][pckg_sz-1:pckg_sz-8];
 
                         dest_i=Destino/drvrs;
                         dest_j=Destino%drvrs;
-                        Reg[dest_i][dest_j].push_back(vif.D_pop[i][j]);
+                        Reg[dest_i][dest_j].push_back(vif.D_pop[a_i][a_j]);
 
                         //enviar dato recibido a scoreboard 
-                        transaction.dato=vif.D_pop[i][j];
+                        transaction.dato=vif.D_pop[a_i][a_j];
                         item_collected_port.write(transaction);
                         transaction.print("GOLDEN");
                         busy=0;
