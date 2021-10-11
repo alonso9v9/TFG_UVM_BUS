@@ -100,6 +100,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                         //enviar dato recibido a scoreboard 
                         transaction.dato=vif.D_pop[i][j];
                         item_collected_port.write(transaction);
+                        transaction.print("GOLDEN");
                         busy=0;
                     end
                 end
