@@ -12,6 +12,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
     bit busy;
     bit [7:0] Destino;
     int dest_j, dest_i;
+    bit not_pndng;
     protected bus_transfer transaction;
 
     uvm_analysis_port #(bus_transfer) item_collected_port;
@@ -23,8 +24,13 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
 
     function new(string name, uvm_component parent=null);
         super.new(name, parent);
-        turn = new(0);
+        
+        foreach (turn[i,j]) begin
+            turn[i][j] = new(0);
+        end
+        
         busy=0;
+        not_pndng=1;
 
         transaction = new();
         item_collected_port = new("item_collected_port", this);
@@ -47,8 +53,14 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
 
     virtual protected task arbiter ();
         forever @(vif.pndng) begin
+            not_pndng=1;
+            foreach(vif.pndng[i,j]) begin
+                if (vif.pndng[i][j])begin
+                    not_pndng=0;
+                end
+            end
             if (!busy) begin
-                if (vif.pndng != 0) begin
+                if (!not_pndng) begin
                     for (int i=0; i<bits; ++i) begin
                         for (int j=0; j<drvrs; ++j) begin
                             if (vif.pndng[i][j]) begin
