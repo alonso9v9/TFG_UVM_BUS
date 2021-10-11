@@ -102,13 +102,14 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
             a_i=i;
             a_j=j;
         fork
+            forever @(posedge vif.clock) begin
+                vif.D_pop[a_i][a_j]<=D_out[a_i][a_j][0];
+                $display("Dato listo %h",vif.D_pop[a_i][a_j]);
+            end
             forever @(posedge vif.pop[a_i][a_j]) begin
                     D_out[a_i][a_j].pop_front;
                     if(D_out[a_i][a_j].size()==0)
                         vif.pndng[a_i][a_j]<=0;
-            end
-            forever @(posedge vif.clock) begin
-                vif.D_pop[a_i][a_j]<=D_out[a_i][a_j][0];
             end
             join_none
         end
