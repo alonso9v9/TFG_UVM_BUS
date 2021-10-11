@@ -22,6 +22,7 @@ package bus_pkg;
     `include "bus_master_driver.sv"
     `include "bus_master_agent.sv"
 
+    `include "GoldenReference.sv"
     `include "bus_slave_monitor.sv"
     `include "bus_slave_agent.sv"
 

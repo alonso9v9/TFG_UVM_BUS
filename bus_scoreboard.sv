@@ -13,7 +13,9 @@
 //------------------------------------------------------------------------------
 
 class bus_scoreboard extends uvm_scoreboard;
-
+  
+  
+  uvm_analysis_imp#(bus_transfer, bus_scoreboard) gldnref_item_collected_export;
   uvm_analysis_imp#(bus_transfer, bus_scoreboard) monitor_item_collected_export;
   uvm_analysis_imp#(bus_transfer, bus_scoreboard) driver_item_collected_export;
 
@@ -40,8 +42,9 @@ class bus_scoreboard extends uvm_scoreboard;
 
     //build_phase
     function void build_phase(uvm_phase phase);
-      monitor_item_collected_export = new("monitor_item_collected_export", this);
-      driver_item_collected_export = new("driver_item_collected_export", this);
+        gldnref_item_collected_export = new("gldnref_item_collected_export", this);
+        monitor_item_collected_export = new("monitor_item_collected_export", this);
+        driver_item_collected_export = new("driver_item_collected_export", this);
     endfunction
 
     // write

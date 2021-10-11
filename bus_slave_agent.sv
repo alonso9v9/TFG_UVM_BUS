@@ -16,6 +16,7 @@
 class bus_slave_agent extends uvm_agent;
 
     bus_slave_monitor monitor;
+    GoldenReference gldnref;
 
     // Provide implementations of virtual methods such as get_type_name and create
     `uvm_component_utils_begin(bus_slave_agent)
@@ -30,6 +31,7 @@ class bus_slave_agent extends uvm_agent;
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         monitor = bus_slave_monitor::type_id::create("monitor", this);
+        gldnref = bus_slave_gldnref::type_id::create("gldnref", this);
     endfunction : build_phase
 
 

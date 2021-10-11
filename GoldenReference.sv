@@ -2,7 +2,7 @@
 
 
 
-class GoldenReference #(parameter pckg_sz=16,parameter int drvrs=4,parameter fif_Size=10, parameter bits =1);
+class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Size=10,parameter brodcst={8{1'b1}},parameter bits =1) extends uvm_monitor;
 
     bit [pckg_sz-1:0] Reg [bits-1:0][drvrs-1:0][$]; //FIFOS de salida
     
@@ -16,18 +16,36 @@ class GoldenReference #(parameter pckg_sz=16,parameter int drvrs=4,parameter fif
 
     uvm_analysis_port #(bus_transfer) item_collected_port;
 
-    function new();
+    `uvm_component_utils_begin(GoldenReference)
+    `uvm_component_utils_end
+
+
+
+    function new(string name, uvm_component parent=null);
+        super.new(name, parent);
         turn = new(0);
         busy=0;
 
         transaction = new();
         item_collected_port = new("item_collected_port", this);
-    endfunction
+    endfunction : new
 
 
+    function void build_phase(uvm_phase phase);
+        if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
+        `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
+    endfunction: build_phase
 
 
-    task arbiter ();
+    virtual task run_phase(uvm_phase phase);
+		fork
+            arbiter();
+			get_transaction();
+		join
+	endtask : run_phase
+
+
+    virtual protected task arbiter ();
         forever @(vif.pending) begin
             if (!busy) begin
                 if (vif.pending != 0) begin
@@ -48,7 +66,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter int drvrs=4,parameter fif
         end
     endtask 
     
-    task get_transaction();
+    virtual protected task get_transaction();
         
         foreach(vif.pending[i,j]) begin
             automatic int a_i, a_j;
