@@ -46,12 +46,12 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
 
 
     virtual protected task arbiter ();
-        forever @(vif.pending) begin
+        forever @(vif.pndng) begin
             if (!busy) begin
-                if (vif.pending != 0) begin
+                if (vif.pndng != 0) begin
                     for (int i=0; i<bits; ++i) begin
                         for (int j=0; j<drvrs; ++j) begin
-                            if (vif.pending[i][j]) begin
+                            if (vif.pndng[i][j]) begin
                                 turn[i][j].put(1);
                                 busy=1;
                                 break;
@@ -68,13 +68,13 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
     
     virtual protected task get_transaction();
         
-        foreach(vif.pending[i,j]) begin
+        foreach(vif.pndng[i,j]) begin
             automatic int a_i, a_j;
             a_i=i;
             a_j=j;
             fork
                 forever @(posedge vif.clock) begin
-                    if (vif.pending[a_i][a_j]) begin
+                    if (vif.pndng[a_i][a_j]) begin
                         
                         turn[i][j].get(1);
                         
