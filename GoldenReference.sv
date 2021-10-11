@@ -88,21 +88,23 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
             fork
                 forever @(posedge vif.clock) begin
                     if (vif.pndng[a_i][a_j]) begin
+
+                        void'(this.begin_tr(transaction));
                         
                         turn[a_i][a_j].get(1);
                         $display("Turno recibido %d %d",a_i,a_j);
                         
                         //Mandar dato a destino
                         Destino = vif.D_pop[a_i][a_j][pckg_sz-1:pckg_sz-8];
+                        transaction.dato=vif.D_pop[a_i][a_j];
+                        transaction.print("GOLDEN");
 
                         dest_i=Destino/drvrs;
                         dest_j=Destino%drvrs;
                         Reg[dest_i][dest_j].push_back(vif.D_pop[a_i][a_j]);
 
                         //enviar dato recibido a scoreboard 
-                        transaction.dato=vif.D_pop[a_i][a_j];
                         item_collected_port.write(transaction);
-                        transaction.print("GOLDEN");
                         busy=0;
                     end
                 end
