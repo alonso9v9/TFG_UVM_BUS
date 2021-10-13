@@ -60,14 +60,51 @@ class random_sequence extends bus_base_sequence;
   
     virtual task body();
         $display("SEQUENCE BODY");
-        repeat (2) begin
-            `uvm_do_with(req, 
-            { req.tipo == trans;
-            req.retardo == retardo;} )
-            $display("[SEQUENCE] Item sent to driver");
-            `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
+        if ($value$plusargs("ITER",iter))
+            repeat (iter) begin
+                `uvm_do_with(req, 
+                { req.tipo == trans;
+                req.retardo == retardo;} )
+                $display("[SEQUENCE] Item sent to driver");
+                `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
+            end 
+        else begin
+            $display("NO ITER NUMBER");
         end 
 
+    endtask
+    
+  endclass : random_sequence
+
+  class max_alter extends bus_base_sequence;
+
+    `uvm_object_utils(max_alter)
+    
+    function new(string name="max_alter");
+      super.new(name);
+    endfunction
+    
+    rand int retardo;
+    int iter;
+
+    constraint retardo_ct { (retardo <= 10); }
+
+  
+    virtual task body(iter);
+        $display("SEQUENCE BODY");
+        
+        if ($value$plusargs("ITER",iter))
+            repeat (iter) begin
+                `uvm_do_with(req, 
+                { req.tipo == trans;
+                req.retardo == retardo;
+                req.dato == 'hF;} )
+                $display("[SEQUENCE] Item sent to driver");
+                `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
+            end 
+        else begin
+            $display("NO ITER NUMBER");
+        end
     endtask
     
   endclass : random_sequence
