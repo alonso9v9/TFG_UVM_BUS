@@ -27,7 +27,7 @@ class bus_transfer #(parameter pckg_sz =16,parameter drvrs=4,parameter broadcast
 	rand bit [7:0] Destino;
 
 
-    constraint const_payload{dato[pckg_sz-9:0] == payload}
+    constraint const_payload{dato[pckg_sz-9:0] == payload;}
   	constraint const_retardo{retardo<=max_retardo; retardo>=0;}
   	constraint dest{dato[pckg_sz-1:pckg_sz-8]==Destino; Destino>=0;}
   	constraint dist_Dest {Destino dist{broadcast:=0,[0:drvrs*bits-1]:=100,[drvrs:100000]:=0};}
