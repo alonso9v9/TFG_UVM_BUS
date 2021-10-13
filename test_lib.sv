@@ -73,7 +73,7 @@ class test_comun_case extends bus_base_test;
 
         seq = random_sequence::type_id::create("seq");
         
-        //uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -81,7 +81,7 @@ class test_comun_case extends bus_base_test;
     task run_phase(uvm_phase phase);
       
         phase.raise_objection(this);
-        seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        //seq.start(bus_tb0.bus0.master_agent0.sequencer);
         phase.drop_objection(this);
         
 
