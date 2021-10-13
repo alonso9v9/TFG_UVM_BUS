@@ -72,11 +72,8 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 			@(posedge vif.clock);
             $display("[DRIVER] Getting new item");
 			seq_item_port.get_next_item(req);
-			$cast(rsp, req.clone());
-			rsp.set_id_info(req);
-			drive_transfer(rsp);
+			drive_transfer(req);
 			seq_item_port.item_done();
-			seq_item_port.put_response(rsp);
 		end
 
 	endtask : get_and_drive
