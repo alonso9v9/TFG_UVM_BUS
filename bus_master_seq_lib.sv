@@ -60,7 +60,7 @@ class random_sequence extends bus_base_sequence;
   
     virtual task body();
         $display("SEQUENCE BODY");
-        if ($value$plusargs("ITER",iter))
+        if ($value$plusargs("ITER=%d",iter))
             repeat (iter) begin
                 `uvm_do_with(req, 
                 { req.tipo == trans;
@@ -93,7 +93,7 @@ class random_sequence extends bus_base_sequence;
     virtual task body();
         $display("SEQUENCE BODY");
         
-        if ($value$plusargs("ITER",iter))
+        if ($value$plusargs("ITER=%d",iter))
             repeat (iter) begin
                 `uvm_do_with(req, 
                 { req.tipo == trans;
