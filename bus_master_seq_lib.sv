@@ -107,4 +107,4 @@ class random_sequence extends bus_base_sequence;
         end
     endtask
     
-  endclass : random_sequence
+  endclass : max_alter
