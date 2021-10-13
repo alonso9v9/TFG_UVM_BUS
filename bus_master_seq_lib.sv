@@ -90,7 +90,7 @@ class random_sequence extends bus_base_sequence;
     constraint retardo_ct { (retardo <= 10); }
 
   
-    virtual task body(iter);
+    virtual task body();
         $display("SEQUENCE BODY");
         
         if ($value$plusargs("ITER",iter))
