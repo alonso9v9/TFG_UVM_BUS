@@ -71,24 +71,13 @@ class test_comun_case extends bus_base_test;
   
     virtual function void build_phase(uvm_phase phase);
 
-        seq = random_sequence::type_id::create("seq");
+        //seq = random_sequence::type_id::create("seq");
         
-        //uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
   
-    task run_phase(uvm_phase phase);
-      
-        phase.raise_objection(this);
-        seq.start(bus_tb0.bus0.master_agent0.sequencer);
-        phase.drop_objection(this);
-        
-
-        
-        //set a drain-time for the environment if desired
-        phase.phase_done.set_drain_time(this, 50);
-    endtask : run_phase
   
   endclass : test_comun_case 
   
