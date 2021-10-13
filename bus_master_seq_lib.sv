@@ -98,7 +98,7 @@ class random_sequence extends bus_base_sequence;
                 `uvm_do_with(req, 
                 { req.tipo == trans;
                 req.retardo == retardo;
-                req.dato == 'hF;} )
+                req.payload == 'hFFFFFFFFFFFF;} )
                 $display("[SEQUENCE] Item sent to driver");
                 `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
             end 

@@ -19,12 +19,15 @@ typedef enum {trans,broadcast,reset} tipo_acc;
 class bus_transfer #(parameter pckg_sz =16,parameter drvrs=4,parameter broadcast={8{1'b1}}, parameter bits = 1) extends uvm_sequence_item;
 	rand int retardo;
 	rand bit [pckg_sz-1:0] dato;
+    rand bit [pckg_sz-9:0] payload;
 	realtime tiempo;
 	rand tipo_acc tipo;
 	int max_retardo;
 	rand bit [7:0] Origen;
 	rand bit [7:0] Destino;
 
+
+    constraint const_payload{dato[pckg_sz-9:0] == payload}
   	constraint const_retardo{retardo<=max_retardo; retardo>=0;}
   	constraint dest{dato[pckg_sz-1:pckg_sz-8]==Destino; Destino>=0;}
   	constraint dist_Dest {Destino dist{broadcast:=0,[0:drvrs*bits-1]:=100,[drvrs:100000]:=0};}
@@ -36,6 +39,7 @@ class bus_transfer #(parameter pckg_sz =16,parameter drvrs=4,parameter broadcast
   `uvm_object_utils_begin(bus_transfer)
         `uvm_field_int    (retardo,        UVM_DEFAULT)
         `uvm_field_int    (dato,           UVM_DEFAULT)
+        `uvm_field_int    (payload,           UVM_DEFAULT)
         `uvm_field_real    (tiempo,         UVM_DEFAULT)  
         `uvm_field_enum   (tipo_acc, tipo, UVM_DEFAULT)
         `uvm_field_int    (max_retardo,    UVM_DEFAULT)
