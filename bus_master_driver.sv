@@ -132,7 +132,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
             broadcast:begin
                 foreach (D_out[a_i]) begin
                     foreach (D_out[a_i][a_j]) begin
-                        disp=i*drvrs+j;
+                        disp=i*drvrs+j; //CAMBIAR para ser generico
                         if (disp!=transaction.Origen) begin
                         D_out[a_i][a_j].push_back(transaction.dato);
                             vif.pndng[a_i][a_j]<=1;
