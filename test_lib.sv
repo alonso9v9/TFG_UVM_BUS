@@ -90,11 +90,11 @@ class test_comun_case extends bus_base_test;
   
   endclass : test_comun_case 
   
-  class test_comun_case extends bus_base_test;
+class max_alter_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(max_alter_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "max_alter_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -102,7 +102,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", max_alter_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -119,14 +119,14 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+  endclass : max_alter_test 
 
 
-  class test_comun_case extends bus_base_test;
+class dest_alter_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(dest_alter_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "dest_alter_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -134,7 +134,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", dest_alter_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -151,14 +151,14 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+endclass : dest_alter_test 
 
 
-  class test_comun_case extends bus_base_test;
+class orig_alter_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(orig_alter_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "orig_alter_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -166,7 +166,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", orig_alter_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -183,14 +183,14 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+endclass : orig_alter_test 
 
 
-  class test_comun_case extends bus_base_test;
+class bursts_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(bursts_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "bursts_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -198,7 +198,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", bursts_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -215,14 +215,14 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+endclass : bursts_test 
 
 
-  class test_comun_case extends bus_base_test;
+class invalid_dest_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(invalid_dest_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "invalid_dest_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -230,7 +230,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", invalid_dest_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -247,14 +247,14 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+endclass : invalid_dest_test 
 
 
-  class test_comun_case extends bus_base_test;
+class same_dest_test extends bus_base_test;
 
-    `uvm_component_utils(test_comun_case)
+    `uvm_component_utils(same_dest_test)
   
-    function new(string name = "test_comun_case", uvm_component parent=null);
+    function new(string name = "same_dest_test", uvm_component parent=null);
       super.new(name,parent);
     endfunction : new
   
@@ -262,7 +262,7 @@ class test_comun_case extends bus_base_test;
 
         //seq = random_sequence::type_id::create("seq");
         
-        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", random_sequence::type_id::get());
+        uvm_config_db#(uvm_object_wrapper)::set(this, "bus_tb0.bus0.master_agent0.sequencer.run_phase", "default_sequence", same_dest_seq::type_id::get());
         super.build_phase(phase);
         
     endfunction : build_phase
@@ -279,4 +279,4 @@ class test_comun_case extends bus_base_test;
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
   
-  endclass : test_comun_case 
+endclass : same_dest_test 
