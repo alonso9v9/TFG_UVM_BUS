@@ -16,6 +16,7 @@ package bus_pkg;
     typedef uvm_config_db#(virtual bus_if) bus_vif_config;
     typedef virtual bus_if bus_vif;
 
+    `include "bus_parameters.sv"
     `include "bus_transfer.sv"
 
     `include "bus_master_sequencer.sv"
