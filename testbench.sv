@@ -7,8 +7,8 @@
 // Modulo top del testbench de un bus paralelo parametrizable
 
 
-`define BUS_ADDR_WIDTH 16
 
+`include "bus_parameters.sv"
 `include "bus_pkg.sv"
 `include "Library.sv"
 `include "bus_if.sv"
