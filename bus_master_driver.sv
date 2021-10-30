@@ -27,12 +27,10 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
 
     uvm_analysis_port #(bus_transfer) item_collected_port;
 
-    // The following property holds the transaction information currently
-    // begin captured (by the collect_address_phase and data_phase methods). 
+ 
     protected bus_transfer transaction;
 
 
-	// Provide implmentations of virtual methods such as get_type_name and create
 	`uvm_component_utils_begin(bus_master_driver)
 	`uvm_component_utils_end
 

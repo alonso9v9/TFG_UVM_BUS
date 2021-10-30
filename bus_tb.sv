@@ -17,7 +17,6 @@
 
 class bus_tb extends uvm_env;
 
-    // Provide implementations of virtual methods such as get_type_name and create
     `uvm_component_utils(bus_tb)
 
     // bus environment

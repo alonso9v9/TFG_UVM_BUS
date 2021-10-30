@@ -17,7 +17,6 @@ class bus_master_agent extends uvm_agent;
     bus_master_driver driver;
     bus_master_sequencer sequencer;
 
-    // Provide implementations of virtual methods such as get_type_name and create
     `uvm_component_utils_begin(bus_master_agent)
     `uvm_component_utils_end
 

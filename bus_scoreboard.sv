@@ -27,7 +27,7 @@ class bus_scoreboard extends uvm_scoreboard;
 
     protected int unsigned m_mem_expected[int unsigned];
 
-    // Provide implementations of virtual methods such as get_type_name and create
+
     `uvm_component_utils_begin(bus_scoreboard)
         `uvm_field_int(disable_scoreboard, UVM_DEFAULT)
         `uvm_field_int(num_writes, UVM_DEFAULT|UVM_DEC)
@@ -35,7 +35,7 @@ class bus_scoreboard extends uvm_scoreboard;
         `uvm_field_int(num_uninit_reads, UVM_DEFAULT|UVM_DEC)
     `uvm_component_utils_end
 
-    // new - constructor
+
     function new (string name, uvm_component parent);
         super.new(name, parent);
     endfunction : new
@@ -52,10 +52,10 @@ class bus_scoreboard extends uvm_scoreboard;
         
     endfunction : write
 
-    // memory_verify
-    protected function void memory_verify(input bus_transfer trans);
+    // verify
+    protected function void transaction_verify(input bus_transfer trans);
 
-    endfunction : memory_verify
+    endfunction : transaction_verify
 
     // report_phase
     virtual function void report_phase(uvm_phase phase);

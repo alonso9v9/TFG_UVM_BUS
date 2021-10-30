@@ -21,11 +21,10 @@ class bus_env extends uvm_env;
     bus_master_agent master_agent0;
     bus_slave_agent slave_agent0;
 
-    // Provide implementations of virtual methods such as get_type_name and create
     `uvm_component_utils_begin(bus_env)
     `uvm_component_utils_end
 
-    // new - constructor
+
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction : new
