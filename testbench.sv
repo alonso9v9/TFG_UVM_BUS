@@ -46,9 +46,16 @@ module bus_tb_top;
         #41 vif.reset = 1'b0;
     end
 
+    initial begin
+        $fsdbDumpfile(“debug.fsdb”)
+        $fsdbDumpvars(0,bus_tb_top)
+    end
+
     //Generate Clock
     always begin
         #5 vif.clock = ~vif.clock;
     end
+
+    
 
 endmodule
