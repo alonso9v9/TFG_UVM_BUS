@@ -54,6 +54,7 @@ class random_sequence extends bus_base_sequence;
     virtual task body();
         $display("SEQUENCE BODY");
         if ($value$plusargs("ITER=%d",iter))
+            begin
             $display ("ITER NUM", iter);
             repeat (iter) begin
                 `uvm_do_with(req, 
@@ -61,7 +62,8 @@ class random_sequence extends bus_base_sequence;
                 req.retardo == retardo;} )
                 $display("[SEQUENCE] Item sent to driver");
                 `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
-            end 
+            end
+        end
         else begin
             $display("NO ITER NUMBER");
         end 
