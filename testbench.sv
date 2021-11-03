@@ -47,8 +47,8 @@ module bus_tb_top;
     end
 
     initial begin
-        $fsdbDumpfile(“debug.fsdb”)
-        $fsdbDumpvars(0,bus_tb_top)
+        $fsdbDumpfile("debug.fsdb");
+        $fsdbDumpvars(0,bus_tb_top);
     end
 
     //Generate Clock
