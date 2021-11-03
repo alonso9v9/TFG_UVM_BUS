@@ -1091,41 +1091,41 @@ endmodule
 // Definition of the prll bus system
 ///////////////////////////////////////////////////////////////////////
   
-//module prll_bs_gnrtr_n_rbtr #(parameter buses = 1,parameter bits = 1,parameter drvrs = 4, parameter broadcast = {8{1'b1}}) (
-//  input clk,
-//  input reset,
-//  input  pndng[buses-1:0][drvrs-1:0],
-//  output push[buses-1:0][drvrs-1:0],
-//  output pop[buses-1:0][drvrs-1:0],
-//  input  [bits-1:0] D_pop[buses-1:0][drvrs-1:0],
-//  output [bits-1:0] D_push[buses-1:0][drvrs-1:0]
-//);
-//  wire [bits-1:0] bus[buses-1:0];
-//  wire trn_chng[buses-1:0];
-//  wire wrt[buses-1:0];
-//  
-//  genvar b;
-//  genvar i;
-//  generate
-//    for(b=0; b < buses; b=b+1)begin:_bus_ 
-//      for(i=0;i<drvrs;i=i+1)begin:ntrfs 
-//        prll_bs_ntrfs #(drvrs,bits,i,broadcast) prll_bus_instance (
-//        .D_push(D_push[b][i]),
-//        .pndng(pndng[b][i]),
-//        .clk(clk),
-//        .reset(reset),
-//        .bus(bus[b]),
-//        .trn_chng(trn_chng[b]),
-//        .wrt(wrt[b]),
-//        .pop(pop[b][i]),
-//        .push(push[b][i]),
-//        .D_pop(D_pop[b][i])
-//        );
-//      end
-//          assign bus[b]= reset?{bits{1'b0}}:{bits{1'bz}};
-//    end
-//  endgenerate
-//endmodule
+module prll_bs_gnrtr_n_rbtr #(parameter buses = 1,parameter bits = 1,parameter drvrs = 4, parameter broadcast = {8{1'b1}}) (
+ input clk,
+ input reset,
+ input  pndng[buses-1:0][drvrs-1:0],
+ output push[buses-1:0][drvrs-1:0],
+ output pop[buses-1:0][drvrs-1:0],
+ input  [bits-1:0] D_pop[buses-1:0][drvrs-1:0],
+ output [bits-1:0] D_push[buses-1:0][drvrs-1:0]
+);
+ wire [bits-1:0] bus[buses-1:0];
+ wire trn_chng[buses-1:0];
+ wire wrt[buses-1:0];
+ 
+ genvar b;
+ genvar i;
+ generate
+   for(b=0; b < buses; b=b+1)begin:_bus_ 
+     for(i=0;i<drvrs;i=i+1)begin:ntrfs 
+       prll_bs_ntrfs #(drvrs,bits,i,broadcast) prll_bus_instance (
+       .D_push(D_push[b][i]),
+       .pndng(pndng[b][i]),
+       .clk(clk),
+       .reset(reset),
+       .bus(bus[b]),
+       .trn_chng(trn_chng[b]),
+       .wrt(wrt[b]),
+       .pop(pop[b][i]),
+       .push(push[b][i]),
+       .D_pop(D_pop[b][i])
+       );
+     end
+         assign bus[b]= reset?{bits{1'b0}}:{bits{1'bz}};
+   end
+ endgenerate
+endmodule
 
 ///////////////////////////////////////////////////////////////////////
 // Definition of the prll bus system with homogeneus fifos
