@@ -7,18 +7,18 @@
 // Interface con el DUT del testbench de un bus paralelo parametrizable
 
 
-interface bus_if #(parameter pckg_sz = 16, parameter drvrs = 4, parameter bits = 1);
+interface bus_if #(parameter bits = 16, parameter drvrs = 4, parameter buses = 1);
 
   //Signals
 	logic clock;
 	logic reset;
-	logic pndng[bits-1:0][drvrs-1:0];
+	logic pndng[buses-1:0][drvrs-1:0];
 	
-	logic pop[bits-1:0][drvrs-1:0];
-	logic [pckg_sz-1:0] D_pop [bits-1:0][drvrs-1:0];
+	logic pop[buses-1:0][drvrs-1:0];
+	logic [bits-1:0] D_pop [buses-1:0][drvrs-1:0];
 	
-	logic push[bits-1:0][drvrs-1:0];
-	logic [pckg_sz-1:0] D_push [bits-1:0][drvrs-1:0];
+	logic push[buses-1:0][drvrs-1:0];
+	logic [bits-1:0] D_push [buses-1:0][drvrs-1:0];
 
     // clocking driver_cb @(posedge clock);
     //     default input #1 output #1;

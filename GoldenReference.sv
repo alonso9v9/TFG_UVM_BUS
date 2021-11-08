@@ -2,13 +2,13 @@
 
 
 
-class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Size=10,parameter brodcst={8{1'b1}},parameter bits =1) extends uvm_monitor;
+class GoldenReference #(parameter bits=16,parameter drvrs=4,parameter fif_Size=10,parameter brodcst={8{1'b1}},parameter buses =1) extends uvm_monitor;
 
-    bit [pckg_sz-1:0] Reg [bits-1:0][drvrs-1:0][$]; //FIFOS de salida
+    bit [bits-1:0] Reg [buses-1:0][drvrs-1:0][$]; //FIFOS de salida
     
-    protected virtual bus_if #(.pckg_sz(pckg_sz),.drvrs(drvrs),.bits(bits)) vif;
+    protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
 
-    semaphore turn [bits-1:0][drvrs-1:0];
+    semaphore turn [buses-1:0][drvrs-1:0];
     bit busy;
     bit [7:0] Destino;
     int dest_j, dest_i;
@@ -61,7 +61,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
             end
             if (!busy) begin
                 if (!not_pndng) begin
-                    for (int i=0; i<bits; ++i) begin
+                    for (int i=0; i<buses; ++i) begin
                         for (int j=0; j<drvrs; ++j) begin
                             if (vif.pndng[i][j]) begin
                                 turn[i][j].put(1);
@@ -97,7 +97,7 @@ class GoldenReference #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Siz
                         $display("Turno recibido %d %d",a_i,a_j);
                         
                         //Mandar dato a destino
-                        Destino = vif.D_pop[a_i][a_j][pckg_sz-1:pckg_sz-8];
+                        Destino = vif.D_pop[a_i][a_j][bits-1:bits-8];
 
                         $display("Dato enviado: %h",vif.D_pop[a_i][a_j]);
                         transaction.dato=vif.D_pop[a_i][a_j];

@@ -13,12 +13,12 @@
 //
 //------------------------------------------------------------------------------
 
-class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_Size=10,parameter brodcst={8{1'b1}},parameter bits =1) extends uvm_monitor;
+class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size=10,parameter brodcst={8{1'b1}},parameter buses =1) extends uvm_monitor;
 
 
-    protected virtual bus_if #(.pckg_sz(pckg_sz),.drvrs(drvrs),.bits(bits)) vif;
+    protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
     int espera;
-    bit [pckg_sz-1:0] D_in [bits-1:0][drvrs-1:0][$:fif_Size]; //FIFOS 
+    bit [bits-1:0] D_in [buses-1:0][drvrs-1:0][$:fif_Size]; //FIFOS 
     bit checks_enable = 1;
 
     uvm_analysis_port#(bus_transfer) item_collected_port;
@@ -73,7 +73,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                     espera = espera+1;
             end
 
-            if (vif.D_push[0][0][pckg_sz-1:pckg_sz-8]==brodcst) begin
+            if (vif.D_push[0][0][bits-1:bits-8]==brodcst) begin
                 transaction.tipo=broadcast;
                 foreach(vif.push[0][i]) begin
                     if (vif.push[0][i]) begin
@@ -129,7 +129,7 @@ class bus_slave_monitor #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
     endtask : collect_transactions
 
 
-    //constraint dest{dato[pckg_sz-1:pckg_sz-8]==Destino; Destino>=0;}
+    //constraint dest{dato[bits-1:bits-8]==Destino; Destino>=0;}
 
   
   	//Assertions
