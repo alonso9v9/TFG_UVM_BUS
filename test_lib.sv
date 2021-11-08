@@ -63,7 +63,7 @@ class test_comun_case extends bus_base_test;
 
     `uvm_component_utils(test_comun_case)
 
-    //random_sequence seq;
+    random_sequence seq;
   
     function new(string name = "test_comun_case", uvm_component parent=null);
       super.new(name,parent);
