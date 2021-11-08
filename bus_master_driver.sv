@@ -103,6 +103,8 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
             end
             forever @(posedge vif.pop[a_i][a_j]) begin
                     D_out[a_i][a_j].pop_front;
+                    $display ("POP at %h , %h", a_i,a_j);
+                    $display ("AFter POP %p", D_out[a_i][a_j]);
                     if(D_out[a_i][a_j].size()==0)
                         vif.pndng[a_i][a_j]<=0;
             end
@@ -152,7 +154,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                 
                 D_out[i][j].push_back(transaction.dato); //Agregamos el dato enviado en la fifo out del origen
                 vif.pndng[i][j]<=1;
-                //vif.D_pop[i][j]<=D_out[i][j][0];
+                vif.D_pop[i][j]<=D_out[i][j][0];
                 transaction.tiempo = $realtime;
                 transaction.print("Driver: Transaccion ejecutada");
             end

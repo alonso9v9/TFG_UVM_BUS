@@ -85,7 +85,7 @@ class test_comun_case extends bus_base_test;
         phase.drop_objection(this);
         
 
-        
+        #500;
         //set a drain-time for the environment if desired
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase

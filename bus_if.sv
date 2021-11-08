@@ -20,6 +20,28 @@ interface bus_if #(parameter pckg_sz = 16, parameter drvrs = 4, parameter bits =
 	logic push[bits-1:0][drvrs-1:0];
 	logic [pckg_sz-1:0] D_push [bits-1:0][drvrs-1:0];
 
+    clocking driver_cb @(posedge clock);
+        default input #1 output #1;
+        output D_push
+        input pndng
+        output push
+        output pop 
+        input D_pop
+    endclocking
+
+    clocking monitor_cb @(posedge clock);
+        default input #1 output #1;
+        input D_push
+        input pndng
+        input push
+        input pop 
+        input D_pop
+    endclocking
+
+    modport Driver (clocking driver_cb, input clk, reset);
+
+    modport Monitor (clocking monitor_cb, input clk, reset);
+
 
   // Coverage and assertions
 
