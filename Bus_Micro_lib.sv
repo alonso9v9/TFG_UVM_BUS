@@ -829,42 +829,42 @@ endmodule
 // Definition of the Top Bus System 
 ///////////////////////////////////////////////////////////////////////
 
-//module bs_gnrtr_n_rbtr #(parameter bits = 1,parameter drvrs = 4, parameter pckg_sz = 16, parameter broadcast = {8{1'b1}}) (
-//  input clk,
-//  input reset,
-//  input  pndng[bits-1:0][drvrs-1:0],
-//  output push[bits-1:0][drvrs-1:0],
-//  output pop[bits-1:0][drvrs-1:0],
-//  input  [pckg_sz-1:0] D_pop[bits-1:0][drvrs-1:0],
-//  output [pckg_sz-1:0] D_push[bits-1:0][drvrs-1:0]
-//);
-//  wire bus[bits-1:0];
-//  wire bs_bsy[bits-1:0];
-//  wire trn_chng[bits-1:0];
-//  
-//  genvar b;
-//  genvar i;
-//  generate
-//    for(b=0; b < bits; b=b+1)
-//    begin: BUS
-//      for (i=0; i < drvrs; i=i+1)
-//      begin: ID
-//        bs_ntrfs_n_rbtr #(pckg_sz,i,broadcast,drvrs) ntrfs (
-//          .clk(clk),
-//          .reset(reset),
-//          .pndng(pndng[b][i]),
-//          .D_pop(D_pop[b][i]),
-//          .D_push(D_push[b][i]),
-//          .push(push[b][i]),
-//          .pop(pop[b][i]),
-//          .bus(bus[b]),
-//          .trn_chng(trn_chng[b]),
-//          .bs_bsy(bs_bsy[b])
-//        );
-//      end
-//    end
-//  endgenerate
-//endmodule
+module bs_gnrtr_n_rbtr #(parameter bits = 1,parameter drvrs = 4, parameter pckg_sz = 16, parameter broadcast = {8{1'b1}}) (
+ input clk,
+ input reset,
+ input  pndng[bits-1:0][drvrs-1:0],
+ output push[bits-1:0][drvrs-1:0],
+ output pop[bits-1:0][drvrs-1:0],
+ input  [pckg_sz-1:0] D_pop[bits-1:0][drvrs-1:0],
+ output [pckg_sz-1:0] D_push[bits-1:0][drvrs-1:0]
+);
+ wire bus[bits-1:0];
+ wire bs_bsy[bits-1:0];
+ wire trn_chng[bits-1:0];
+ 
+ genvar b;
+ genvar i;
+ generate
+   for(b=0; b < bits; b=b+1)
+   begin: BUS
+     for (i=0; i < drvrs; i=i+1)
+     begin: ID
+       bs_ntrfs_n_rbtr #(pckg_sz,i,broadcast,drvrs) ntrfs (
+         .clk(clk),
+         .reset(reset),
+         .pndng(pndng[b][i]),
+         .D_pop(D_pop[b][i]),
+         .D_push(D_push[b][i]),
+         .push(push[b][i]),
+         .pop(pop[b][i]),
+         .bus(bus[b]),
+         .trn_chng(trn_chng[b]),
+         .bs_bsy(bs_bsy[b])
+       );
+     end
+   end
+ endgenerate
+endmodule
 
 ///////////////////////////////////////////////////////////////////////
 // Definition of a parallel bus 

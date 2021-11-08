@@ -53,6 +53,7 @@ class random_sequence extends bus_base_sequence;
   
     virtual task body();
         $display("SEQUENCE BODY");
+        retardo.rand();
         if ($value$plusargs("ITER=%d",iter))
             begin
             $display ("ITER NUM", iter);
