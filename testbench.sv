@@ -21,9 +21,9 @@ module bus_tb_top;
     import bus_parameters::*;
     `include "test_lib.sv" 
 
-    bus_if #(parameter buses = buses,parameter bits = bits,parameter drvrs = drvrs) vif(); // SystemVerilog Interface
+    bus_if #(parameter buses = buses;parameter bits = bits;parameter drvrs = drvrs) vif(); // SystemVerilog Interface
 
-    prll_bs_gnrtr_n_rbtr #(parameter buses = buses,parameter bits = bits,parameter drvrs = drvrs, parameter broadcast = {8{1'b1}}) dut(
+    prll_bs_gnrtr_n_rbtr #(parameter buses = buses;parameter bits = bits;parameter drvrs = drvrs; parameter broadcast = {8{1'b1}}) dut(
       .clk(vif.clock),
       .reset(vif.reset),
       .pndng(vif.pndng),
