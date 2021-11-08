@@ -18,6 +18,7 @@ module bus_tb_top;
 
     import uvm_pkg::*;
     import bus_pkg::*;
+    import bus_parameters::*;
     `include "test_lib.sv" 
 
     bus_if #(parameter buses = buses,parameter bits = bits,parameter drvrs = drvrs) vif(); // SystemVerilog Interface
