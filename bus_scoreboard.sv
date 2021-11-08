@@ -57,17 +57,17 @@ class bus_scoreboard extends uvm_scoreboard;
     // write_gldnref
     function void write_gldnref_export(bus_transfer t);
         gldnref_list.push_back(t);
-        $display ("[Scoreboard] %p",gldnref_list);
+        t.print ("GLDNREF");
     endfunction
 
     function void write_monitor_export(bus_transfer t);
         monitor_list.push_back(t);
-        $display ("[Scoreboard] %p",monitor_list);
+        t.print ("MONITOR");
     endfunction
 
     function void write_driver_export(bus_transfer t);
         driver_list.push_back(t);
-        $display ("[Scoreboard] %p",driver_list);
+        t.print ("DRIVER");
     endfunction
 
     // verify
