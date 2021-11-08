@@ -99,7 +99,7 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
         fork
             forever @(posedge vif.clock) begin
                 vif.D_pop[a_i][a_j]<=D_out[a_i][a_j][0];
-                $display("Dato listo %h",vif.D_pop[a_i][a_j]);
+                //$display("Dato listo %h",vif.D_pop[a_i][a_j]);
             end
             forever @(posedge vif.pop[a_i][a_j]) begin
                     D_out[a_i][a_j].pop_front;

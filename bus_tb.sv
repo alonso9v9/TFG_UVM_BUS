@@ -44,11 +44,11 @@ class bus_tb extends uvm_env;
 
     function void connect_phase(uvm_phase phase);
         
-        bus0.slave_agent0.gldnref.item_collected_port.connect(scoreboard0.gldnref_item_collected_export);
+        bus0.slave_agent0.gldnref.item_collected_port.connect(scoreboard0.gldnref_export);
       
-        bus0.slave_agent0.monitor.item_collected_port.connect(scoreboard0.monitor_item_collected_export);
+        bus0.slave_agent0.monitor.item_collected_port.connect(scoreboard0.monitor_export);
       
-        bus0.master_agent0.driver.item_collected_port.connect(scoreboard0.driver_item_collected_export);
+        bus0.master_agent0.driver.item_collected_port.connect(scoreboard0.driver_export);
       
     endfunction : connect_phase
 

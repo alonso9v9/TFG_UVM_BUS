@@ -11,13 +11,19 @@
 // CLASS: bus_scoreboard
 //
 //------------------------------------------------------------------------------
-
+`uvm_analysis_imp_decl(_gldnref_export)
+`uvm_analysis_imp_decl(_monitor_export)
+`uvm_analysis_imp_decl(_driver_export)
 class bus_scoreboard extends uvm_scoreboard;
   
   
-  uvm_analysis_imp#(bus_transfer, bus_scoreboard) gldnref_item_collected_export;
-  uvm_analysis_imp#(bus_transfer, bus_scoreboard) monitor_item_collected_export;
-  uvm_analysis_imp#(bus_transfer, bus_scoreboard) driver_item_collected_export;
+    uvm_analysis_imp_gldnref_export#(bus_transfer, bus_scoreboard) gldnref_export;
+    uvm_analysis_imp_monitor_export#(bus_transfer, bus_scoreboard) monitor_export;
+    uvm_analysis_imp_driver_export#(bus_transfer, bus_scoreboard) driver_export;
+
+    bus_transfer gldnref_list[$];
+    bus_transfer monitor_list[$];
+    bus_transfer driver_list[$];
 
     protected bit disable_scoreboard = 0;
     protected int num_writes = 0;
@@ -38,19 +44,31 @@ class bus_scoreboard extends uvm_scoreboard;
 
     function new (string name, uvm_component parent);
         super.new(name, parent);
+        gldnref_export = new("gldnref_export", this);
+        monitor_export = new("monitor_export", this);
+        driver_export = new("driver_export", this);
     endfunction : new
 
     //build_phase
     function void build_phase(uvm_phase phase);
-        gldnref_item_collected_export = new("gldnref_item_collected_export", this);
-        monitor_item_collected_export = new("monitor_item_collected_export", this);
-        driver_item_collected_export = new("driver_item_collected_export", this);
+
     endfunction
 
-    // write
-    virtual function void write(bus_transfer trans);
-        
-    endfunction : write
+    // write_gldnref
+    function void write_gldnref_export(bus_transfer t);
+        gldnref_list.push_back(t);
+        $display ("[Scoreboard] %p",gldnref_list);
+    endfunction
+
+    function void write_monitor_export(bus_transfer t);
+        monitor_list.push_back(t);
+        $display ("[Scoreboard] %p",monitor_list);
+    endfunction
+
+    function void write_driver_export(bus_transfer t);
+        driver_list.push_back(t);
+        $display ("[Scoreboard] %p",driver_list);
+    endfunction
 
     // verify
     protected function void transaction_verify(input bus_transfer trans);
