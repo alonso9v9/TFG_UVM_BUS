@@ -82,10 +82,11 @@ class test_comun_case extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        #500;
         phase.drop_objection(this);
         
 
-        #500;
+        
         //set a drain-time for the environment if desired
         phase.phase_done.set_drain_time(this, 50);
     endtask : run_phase
