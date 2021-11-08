@@ -129,9 +129,9 @@ class random_sequence extends bus_base_sequence;
 
   class dest_alter_seq extends bus_base_sequence;
 
-    `uvm_object_utils(random_sequence)
+    `uvm_object_utils(dest_alter_seq)
     
-    function new(string name="random_sequence");
+    function new(string name="dest_alter_seq");
       super.new(name);
     endfunction
     
@@ -170,9 +170,9 @@ class random_sequence extends bus_base_sequence;
 
   class orig_alter_seq extends bus_base_sequence;
 
-    `uvm_object_utils(random_sequence)
+    `uvm_object_utils(orig_alter_seq)
     
-    function new(string name="random_sequence");
+    function new(string name="orig_alter_seq");
       super.new(name);
     endfunction
     
@@ -209,9 +209,9 @@ class random_sequence extends bus_base_sequence;
 
   class bursts_seq extends bus_base_sequence;
 
-    `uvm_object_utils(random_sequence)
+    `uvm_object_utils(bursts_seq)
     
-    function new(string name="random_sequence");
+    function new(string name="bursts_seq");
       super.new(name);
     endfunction
     
@@ -258,9 +258,9 @@ class random_sequence extends bus_base_sequence;
 
   class invalid_dest_seq extends bus_base_sequence;
 
-    `uvm_object_utils(random_sequence)
+    `uvm_object_utils(invalid_dest_seq)
     
-    function new(string name="random_sequence");
+    function new(string name="invalid_dest_seq");
       super.new(name);
     endfunction
     
@@ -293,9 +293,9 @@ class random_sequence extends bus_base_sequence;
 
   class same_dest_seq extends bus_base_sequence;
 
-    `uvm_object_utils(random_sequence)
+    `uvm_object_utils(same_dest_seq)
     
-    function new(string name="random_sequence");
+    function new(string name="same_dest_seq");
       super.new(name);
     endfunction
     
