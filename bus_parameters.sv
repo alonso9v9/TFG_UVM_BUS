@@ -12,6 +12,6 @@ package bus_parameters;
     parameter pckg_sz=16;
     parameter drvrs=4;
     parameter fif_Size=10;
-    parameter bits =1;
+    parameter bits =16;
 
 endpackage:bus_parameters
