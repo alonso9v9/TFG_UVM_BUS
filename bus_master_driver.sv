@@ -102,10 +102,11 @@ class bus_master_driver #(parameter pckg_sz=16,parameter drvrs=4,parameter fif_S
                 //$display("Dato listo %h",vif.D_pop[a_i][a_j]);
             end
             forever @(posedge vif.pop[a_i][a_j]) begin
-                    D_out[a_i][a_j].pop_front;
                     $display ("POP at %h , %h", a_i,a_j);
                     $display ("AFter POP %p", D_out[a_i][a_j]);
                     if(D_out[a_i][a_j].size()==0)
+                        #5;
+                        D_out[a_i][a_j].pop_front;
                         vif.pndng[a_i][a_j]<=0;
             end
             join_none
