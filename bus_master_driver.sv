@@ -104,6 +104,7 @@ class bus_master_driver #(parameter bits=16,parameter drvrs=4,parameter fif_Size
             forever @(posedge vif.pop[a_i][a_j]) begin
                     $display ("POP at %h , %h", a_i,a_j);
                     $display ("AFter POP %p", D_out[a_i][a_j]);
+                    $display ("SIZE %d",D_out[a_i][a_j].size());
                     if(D_out[a_i][a_j].size()==0) begin
                         D_out[a_i][a_j].pop_front;
                         vif.pndng[a_i][a_j]<=0;
