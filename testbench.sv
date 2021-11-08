@@ -22,7 +22,7 @@ module bus_tb_top;
 
     bus_if vif(); // SystemVerilog Interface
 
-    bs_gnrtr_n_rbtr dut(
+    prll_bs_gnrtr_n_rbtr dut(
       .clk(vif.clock),
       .reset(vif.reset),
       .pndng(vif.pndng),

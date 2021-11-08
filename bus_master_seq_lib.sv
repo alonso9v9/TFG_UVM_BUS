@@ -56,7 +56,7 @@ class random_sequence extends bus_base_sequence;
         if ($value$plusargs("ITER=%d",iter))
             begin
             $display ("ITER NUM", iter);
-            repeat (iter) begin
+            repeat (1) begin
                 `uvm_do_with(req, 
                 { req.tipo == trans;
                 req.retardo == retardo;} )
