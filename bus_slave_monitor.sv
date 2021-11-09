@@ -17,7 +17,6 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 
     protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
-    int espera;
     bit [bits-1:0] D_in [buses-1:0][drvrs-1:0][$:fif_Size]; //FIFOS 
     bit checks_enable = 1;
 
@@ -55,75 +54,50 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 
     virtual protected task collect_transactions();
+            
         $display("[%g] El monitor fue inicializado",$time);
 
 
-        @(posedge vif.clock);
-        forever begin
-
-            void'(this.begin_tr(transaction));
+        void'(this.begin_tr(transaction));
 
 
-            $display("[%g] el monitor esta enviado el dato al scoreboard",$time);        
-            espera = 0;
-            @(posedge vif.clock);
-
-            while(espera < transaction.retardo)begin
-                @(posedge vif.clock);
-                    espera = espera+1;
-            end
-
-            if (vif.D_push[0][0][bits-1:bits-8]==brodcst) begin
-                transaction.tipo=broadcast;
-                foreach(vif.push[0][i]) begin
-                    if (vif.push[0][i]) begin
-                        D_in[0][i].push_back(vif.D_push[0][i]);
-                        transaction.dato=D_in[0][i].pop_front;
-                    end
-                end
-                item_collected_port.write(transaction);
-                $display("[MONITOR] [%g] Operación completada",$time);
-                transaction.tiempo=$time;
-                transaction.print("Monitor: Transaccion enviada al checker");
-            end else
-            begin
-                foreach(vif.push[i,j]) begin
-                    automatic int a_i,a_j;
-                    a_i=i;
-                    a_j=j;
-                    fork
-                        forever @(posedge vif.reset) begin              
-                            transaction.tipo=reset;
-                            D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                            $display("[MONITOR] [%g] Operación completada RESET",$time);
-                            transaction.tiempo=$time;
-                            transaction.dato=D_in[a_i][a_j].pop_front;
-                            item_collected_port.write(transaction);
-
-                            `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
-                            
-                            item_collected_port.write(transaction);
-                        end
-                        forever @(posedge vif.push[a_i][a_j]) begin 
-                            if (~vif.reset)begin
-                                $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
-                                transaction.tipo=trans;
-                                D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                                $display("[MONITOR][%g] Operación completada",$time);
-                                transaction.tiempo=$time;
-                                transaction.dato=D_in[a_i][a_j].pop_front;
-                                item_collected_port.write(transaction);
-
-                                `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
-                            
-                                item_collected_port.write(transaction);
-                            end 
-                        end
-                    join_none
-                end
-            end
+        $display("[%g] el monitor esta enviado el dato al scoreboard",$time);        
 
         @(posedge vif.clock);
+
+        foreach(vif.push[i,j]) begin
+            automatic int a_i,a_j;
+            a_i=i;
+            a_j=j;
+            fork
+                forever @(posedge vif.reset) begin              
+                    transaction.tipo=reset;
+                    D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
+                    $display("[MONITOR] [%g] Operación completada RESET",$time);
+                    transaction.tiempo=$time;
+                    transaction.dato=D_in[a_i][a_j].pop_front;
+                    item_collected_port.write(transaction);
+
+                    `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
+                    
+                    item_collected_port.write(transaction);
+                end
+                forever @(posedge vif.push[a_i][a_j]) begin 
+                    if (~vif.reset)begin
+                        $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
+                        transaction.tipo=trans;
+                        D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
+                        $display("[MONITOR][%g] Operación completada",$time);
+                        transaction.tiempo=$time;
+                        transaction.dato=D_in[a_i][a_j].pop_front;
+                        item_collected_port.write(transaction);
+
+                        `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
+                    
+                        item_collected_port.write(transaction);
+                    end 
+                end
+            join_none
         end
     endtask : collect_transactions
 
