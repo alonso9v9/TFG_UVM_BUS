@@ -68,10 +68,13 @@ class bus_scoreboard extends uvm_scoreboard;
         found=0;
         foreach (driver_list[i]) begin
             if (driver_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
-                found 1;
+                found =1;
+                break;
             end
         end
-
+        if (found==0) begin
+            sbd_error=1;
+        end
     endfunction
 
     function void write_driver_export(bus_transfer t);
