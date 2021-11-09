@@ -116,6 +116,7 @@ class max_alter_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        #1000;
         phase.drop_objection(this);
         
 

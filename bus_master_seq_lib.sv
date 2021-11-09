@@ -94,7 +94,7 @@ class random_sequence extends bus_base_sequence;
                 `uvm_do_with(req, 
                 { req.tipo == trans;
                 req.retardo == retardo;
-                req.payload == {(bits-8){1'b1}};} )
+                req.payload == {(bits-8){1'b0}};} )
                 $display("[SEQUENCE] Item sent to driver");
                 `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
 
@@ -108,14 +108,14 @@ class random_sequence extends bus_base_sequence;
                 `uvm_do_with(req, 
                 { req.tipo == trans;
                 req.retardo == retardo;
-                req.payload == {(bits-8){1'b1}};} )
+                req.payload == {((bits-8)/2){2'b01}};} )
                 $display("[SEQUENCE] Item sent to driver");
                 `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
 
                 `uvm_do_with(req, 
                 { req.tipo == trans;
                 req.retardo == retardo;
-                req.payload == {(bits-8){1'b1}};} )
+                req.payload == {((bits-8)/2){1'b1}};} )
                 $display("[SEQUENCE] Item sent to driver");
                 `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
             end 
