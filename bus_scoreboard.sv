@@ -69,7 +69,7 @@ class bus_scoreboard extends uvm_scoreboard;
         found=0;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
-                //found =1;
+                found =1;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
                 break;
