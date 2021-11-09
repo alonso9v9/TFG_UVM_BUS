@@ -55,12 +55,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
     virtual protected task collect_transactions();
             
         $display("[%g] El monitor fue inicializado",$time);
-
-
-        void'(this.begin_tr(transaction));
-
-
-        $display("[%g] el monitor esta enviado el dato al scoreboard",$time);        
+     
 
         @(posedge vif.clock);
 
@@ -81,8 +76,9 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
                     
                 //     item_collected_port.write(transaction);
                 // end
-                forever @(posedge vif.push[a_i][a_j]) begin 
-                    if (~vif.reset)begin
+                forever @(posedge vif.clock) begin 
+                    if (~vif.reset and vif.push[a_i][a_j])begin
+                        void'(this.begin_tr(transaction));
                         $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
                         transaction.tipo=trans;
                         D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
