@@ -30,6 +30,7 @@ class bus_scoreboard extends uvm_scoreboard;
     protected int num_init_reads = 0;
     protected int num_uninit_reads = 0;
     int sbd_error = 0;
+    int index =0;
 
     protected int unsigned m_mem_expected[int unsigned];
 
