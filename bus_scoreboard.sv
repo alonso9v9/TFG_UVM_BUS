@@ -68,8 +68,11 @@ class bus_scoreboard extends uvm_scoreboard;
         //Search in Driver list to see if this was sent
         found=0;
         foreach (pndng_list[i]) begin
-            if (pndng_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
+            if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found =1;
+                foreach (pndng_list[i]) begin
+                    $display ("PENDING DATA BEFORE FOUND %h", pndng_list[i] );
+                end
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
                 foreach (pndng_list[i]) begin
