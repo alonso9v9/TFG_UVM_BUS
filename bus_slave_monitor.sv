@@ -85,6 +85,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
                         $display("[MONITOR][%g] Operación completada",$time);
                         transaction.tiempo=$time;
                         transaction.dato=D_in[a_i][a_j].pop_front;
+                        transaction.Destino=a_i*drvrs+a_j;
                         item_collected_port.write(transaction);
 
                         `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)

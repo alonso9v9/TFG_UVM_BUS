@@ -30,7 +30,7 @@ class bus_scoreboard extends uvm_scoreboard;
     protected int num_init_reads = 0;
     protected int num_uninit_reads = 0;
     int sbd_error = 0;
-    int index =0;
+    int found =0;
 
     protected int unsigned m_mem_expected[int unsigned];
 
@@ -65,10 +65,13 @@ class bus_scoreboard extends uvm_scoreboard;
         monitor_list.push_back(t);
         t.print ("MONITOR");
         //Search in Driver list to see if this was sent
-        index  = driver_list.find(item.dato == t.dato && item.Destino == t.Destino);
-        $display("INDEX FOUND %d",index);
-        index  = driver_list.find(item.dato == 'h10 && item.Destino == 'h6);
-        $display("INDEX NOT FOUND %d",index);
+        found=0;
+        foreach (driver_list[i]) begin
+            if (driver_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
+                found 1;
+            end
+        end
+
     endfunction
 
     function void write_driver_export(bus_transfer t);
