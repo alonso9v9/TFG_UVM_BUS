@@ -65,10 +65,9 @@ class bus_scoreboard extends uvm_scoreboard;
         monitor_list.push_back(t);
         t.print ("MONITOR");
         //Search in Driver list to see if this was sent
-        find_index with (item.a == 2 && item.b == 6);
-        index  = driver_list.find with (item.dato == t.dato && item.Destino == t.Destino);
+        index  = driver_list.find_index with (item.dato == t.dato && item.Destino == t.Destino);
         $display("INDEX FOUND %d",index);
-        index  = driver_list.find with (item.dato == 'h10 && item.Destino == 'h6);
+        index  = driver_list.find_index with (item.dato == 'h10 && item.Destino == 'h6);
         $display("INDEX NOT FOUND %d",index);
     endfunction
 
