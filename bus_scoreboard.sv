@@ -24,6 +24,7 @@ class bus_scoreboard extends uvm_scoreboard;
     bus_transfer gldnref_list[$];
     bus_transfer monitor_list[$];
     bus_transfer driver_list[$];
+    bus_transfer pndng_list[$];
 
     protected bit disable_scoreboard = 0;
     protected int num_writes = 0;
@@ -66,9 +67,11 @@ class bus_scoreboard extends uvm_scoreboard;
         t.print ("MONITOR");
         //Search in Driver list to see if this was sent
         found=0;
-        foreach (driver_list[i]) begin
-            if (driver_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
-                found =1;
+        foreach (pndng_list[i]) begin
+            if (pndng_list[i].dato==t.dato && driver_list[i].Destino == t.Destino) begin
+                //found =1;
+                pndng_list.delete(i);
+                $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
                 break;
             end
         end
@@ -79,6 +82,7 @@ class bus_scoreboard extends uvm_scoreboard;
 
     function void write_driver_export(bus_transfer t);
         driver_list.push_back(t);
+        pndng_list.push_back(t);
         t.print ("DRIVER");
     endfunction
 
