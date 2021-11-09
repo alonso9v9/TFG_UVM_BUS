@@ -64,7 +64,7 @@ class bus_scoreboard extends uvm_scoreboard;
 
     function void write_monitor_export(bus_transfer t);
         monitor_list.push_back(t);
-        t.print ("MONITOR");
+        $display ("SCORE MONITOR");
         //Search in Driver list to see if this was sent
         found=0;
         foreach (pndng_list[i]) begin
@@ -75,7 +75,7 @@ class bus_scoreboard extends uvm_scoreboard;
                 foreach (pndng_list[i]) begin
                     $display ("PENDING DATA AFTER FOUND %h", pndng_list[i].dato );
                 end
-                //break;                
+                break;                
             end
         end
         if (found==0) begin
