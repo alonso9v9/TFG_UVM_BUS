@@ -79,7 +79,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
                 forever @(posedge vif.clock) begin 
                     if (~vif.reset & vif.push[a_i][a_j])begin
                         void'(this.begin_tr(transaction));
-                        $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
+                        //$display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
                         transaction.tipo=trans;
                         D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
                         $display("[MONITOR][%g] Operación completada",$time);
