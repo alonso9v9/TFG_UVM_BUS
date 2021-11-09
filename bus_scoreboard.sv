@@ -80,6 +80,7 @@ class bus_scoreboard extends uvm_scoreboard;
             end
         end
         if (found==0) begin
+            $display("[NOT FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
             sbd_error=1;
         end
     endfunction
