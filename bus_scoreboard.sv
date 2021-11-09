@@ -72,7 +72,11 @@ class bus_scoreboard extends uvm_scoreboard;
                 found =1;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
+                foreach (pndng_list[i]) begin
+                    $display ("PENDING DATA AFTER FOUND %h", pndng_list[i] );
+                end
                 break;
+                
             end
         end
         if (found==0) begin
