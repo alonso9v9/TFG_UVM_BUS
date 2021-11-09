@@ -66,23 +66,19 @@ class bus_scoreboard extends uvm_scoreboard;
         monitor_list.push_back(t);
         t.print ("MONITOR");
         //Search in Driver list to see if this was sent
-        found=0;
+        this.found=0;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
-                found=1;
-                foreach (pndng_list[i]) begin
-                    $display ("PENDING DATA BEFORE FOUND %h", pndng_list[i].dato );
-                end
+                this.found=1;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
                 foreach (pndng_list[i]) begin
                     $display ("PENDING DATA AFTER FOUND %h", pndng_list[i].dato );
                 end
-                break;
-                
+                break;                
             end
         end
-        if (found==0) begin
+        if (this.found==0) begin
             $display("[NOT FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
             sbd_error=1;
         end
