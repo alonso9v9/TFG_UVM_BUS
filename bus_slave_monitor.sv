@@ -17,7 +17,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 
     protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
-    bit [bits-1:0] D_in [buses-1:0][drvrs-1:0][$:fif_Size]; //FIFOS 
+    bit [bits-1:0] D_in [buses-1:0][drvrs-1:0][$]; //FIFOS 
     bit checks_enable = 1;
 
     uvm_analysis_port#(bus_transfer) item_collected_port;
@@ -69,18 +69,18 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
             a_i=i;
             a_j=j;
             fork
-                forever @(posedge vif.reset) begin              
-                    transaction.tipo=reset;
-                    D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                    $display("[MONITOR] [%g] Operación completada RESET",$time);
-                    transaction.tiempo=$time;
-                    transaction.dato=D_in[a_i][a_j].pop_front;
-                    item_collected_port.write(transaction);
+                // forever @(posedge vif.reset) begin              
+                //     transaction.tipo=reset;
+                //     D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
+                //     $display("[MONITOR] [%g] Operación completada RESET",$time);
+                //     transaction.tiempo=$time;
+                //     transaction.dato=D_in[a_i][a_j].pop_front;
+                //     item_collected_port.write(transaction);
 
-                    `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
+                //     `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
                     
-                    item_collected_port.write(transaction);
-                end
+                //     item_collected_port.write(transaction);
+                // end
                 forever @(posedge vif.push[a_i][a_j]) begin 
                     if (~vif.reset)begin
                         $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
