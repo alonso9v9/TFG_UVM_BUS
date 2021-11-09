@@ -92,33 +92,31 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
                     a_i=i;
                     a_j=j;
                     fork
-                        forever @(posedge vif.clock) begin              
-                            if (vif.reset) begin
-                                transaction.tipo=reset;
+                        forever @(posedge vif.reset) begin              
+                            transaction.tipo=reset;
+                            D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
+                            $display("[MONITOR] [%g] Operación completada RESET",$time);
+                            transaction.tiempo=$time;
+                            transaction.dato=D_in[a_i][a_j].pop_front;
+                            item_collected_port.write(transaction);
+
+                            `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
+                            
+                            item_collected_port.write(transaction);
+                        end
+                        forever @(posedge vif.push[a_i][a_j]) begin 
+                            if (~vif.reset)begin
+                                $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
+                                transaction.tipo=trans;
                                 D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                                $display("[MONITOR] [%g] Operación completada RESET",$time);
+                                $display("[MONITOR][%g] Operación completada",$time);
                                 transaction.tiempo=$time;
                                 transaction.dato=D_in[a_i][a_j].pop_front;
                                 item_collected_port.write(transaction);
 
                                 `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
-                                
+                            
                                 item_collected_port.write(transaction);
-                            end else 
-                            begin
-                                $display("Push value %h at %h,%h",vif.push[a_i][a_j],a_i,a_j);
-                                @(posedge vif.push[a_i][a_j]) begin
-                                    transaction.tipo=trans;
-                                    D_in[a_i][a_j].push_back(vif.D_push[a_i][a_j]);
-                                    $display("[MONITOR][%g] Operación completada",$time);
-                                    transaction.tiempo=$time;
-                                    transaction.dato=D_in[a_i][a_j].pop_front;
-                                    item_collected_port.write(transaction);
-
-                                    `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
-                                
-                                    item_collected_port.write(transaction);
-                                end
                             end 
                         end
                     join_none
