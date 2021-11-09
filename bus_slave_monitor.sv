@@ -90,7 +90,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
                         `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
                     
-                        item_collected_port.write(transaction);
+                        //item_collected_port.write(transaction);
                     end 
                 end
             join_none
