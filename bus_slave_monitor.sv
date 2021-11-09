@@ -26,7 +26,6 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
   	
   	
   	`uvm_component_utils_begin(bus_slave_monitor)
-  		`uvm_field_int(espera, UVM_DEFAULT)
     	`uvm_field_int(checks_enable, UVM_DEFAULT)
   	`uvm_component_utils_end
 
