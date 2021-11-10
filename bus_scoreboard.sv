@@ -74,7 +74,7 @@ class bus_scoreboard extends uvm_scoreboard;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found=1;
-                if (pndng_list[i]>0)
+                if (pndng_list[i].size()>0)
                     pndng_list_empty=0;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
