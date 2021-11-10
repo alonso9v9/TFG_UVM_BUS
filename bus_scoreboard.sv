@@ -36,6 +36,7 @@ class bus_scoreboard extends uvm_scoreboard;
     int found =0;
     int trans_received=0;
 
+
     protected int unsigned m_mem_expected[int unsigned];
 
 
@@ -70,7 +71,6 @@ class bus_scoreboard extends uvm_scoreboard;
         //$display ("SCORE MONITOR");
         //Search in Driver list to see if this was sent
         found=0;
-        pndng_list_empty=1;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found=1;
@@ -91,6 +91,7 @@ class bus_scoreboard extends uvm_scoreboard;
             $display("[SCOREBOARD] Pending data to push towards monitor");
         end
     endfunction
+    
     virtual task shutdown_phase(uvm_phase phase);
         phase.raise_objection(this);
         `uvm_info(get_name(), "<shutdown_phase> started, objection raised.", UVM_NONE)
