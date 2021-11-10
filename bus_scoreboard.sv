@@ -34,7 +34,7 @@ class bus_scoreboard extends uvm_scoreboard;
     protected int num_uninit_reads = 0;
     int sbd_error = 0;
     int found =0;
-    int pndng_list_empty;
+    int trans_received=0;
 
     protected int unsigned m_mem_expected[int unsigned];
 
@@ -74,13 +74,9 @@ class bus_scoreboard extends uvm_scoreboard;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found=1;
-                if (pndng_list[i].size()>0)
-                    pndng_list_empty=0;
+                trans_received++;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
-                foreach (pndng_list[i]) begin
-                    $display ("PENDING DATA AFTER FOUND %h", pndng_list[i].dato );
-                end
                 break;                
             end
         end
@@ -88,26 +84,34 @@ class bus_scoreboard extends uvm_scoreboard;
             $display("[NOT FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
             sbd_error=1;
         end
-        if (pndng_list_empty==1) begin
-            $display("[SCOREABOARD] All transactions got to their destiny");
+        if (pndng_list.size()==0) begin
+            $display("[SCOREABOARD] No pending transactions");
             ->scoreboard_done;
+        end else begin
+            $display("[SCOREBOARD] Pending data to push towards monitor");
         end
     endfunction
-
+    virtual task shutdown_phase(uvm_phase phase);
+        phase.raise_objection(this);
+        `uvm_info(get_name(), "<shutdown_phase> started, objection raised.", UVM_NONE)
+            if (driver_list.size()!=monitor_list.size()) begin
+                sbd_error=1;
+                $display("[SCOREBOARD] Error: driver and monitor transactions mismatch");
+            end
+        phase.drop_objection(this);
+        `uvm_info(get_name(), "<shutdown_phase> finished, objection dropped.", UVM_NONE)
+    endtask: shutdown_phase
+    
     function void write_driver_export(bus_transfer t);
         driver_list.push_back(t);
         pndng_list.push_back(t);
         t.print ("DRIVER");
     endfunction
 
-    // verify
-    protected function void transaction_verify(input bus_transfer trans);
-
-    endfunction : transaction_verify
-
     // report_phase
     virtual function void report_phase(uvm_phase phase);
-
+        `uvm_info(get_type_name(),
+        $sformatf("Reporting scoreboard information...\n%s", this.sprint()), UVM_LOW)
     endfunction : report_phase
 
 endclass : bus_scoreboard
