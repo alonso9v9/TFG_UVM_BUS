@@ -98,6 +98,8 @@ class bus_scoreboard extends uvm_scoreboard;
             if (driver_list.size()!=monitor_list.size()) begin
                 sbd_error=1;
                 $display("[SCOREBOARD] Error: driver and monitor transactions mismatch");
+            end else if (!sbd_error)begin
+                $display("[SCOREBOARD] Todas las transecciones completadas con éxito");
             end
         phase.drop_objection(this);
         `uvm_info(get_name(), "<shutdown_phase> finished, objection dropped.", UVM_NONE)
