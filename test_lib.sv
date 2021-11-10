@@ -50,10 +50,10 @@ class bus_base_test extends uvm_test;
 
     function void report_phase(uvm_phase phase);
         if(test_pass) begin
-        `uvm_info(get_type_name(), "** UVM TEST PASSED **", UVM_NONE)
+        `uvm_info(get_type_name(), "** TEST OUTPUT STATUS : UVM TEST PASSED **", UVM_NONE)
         end
         else begin
-        `uvm_error(get_type_name(), "** UVM TEST FAIL **")
+        `uvm_error(get_type_name(), "** TEST OUTPUT STATUS : UVM TEST FAIL **")
         end
     endfunction
 
