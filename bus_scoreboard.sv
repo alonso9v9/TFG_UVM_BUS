@@ -17,6 +17,8 @@
 class bus_scoreboard extends uvm_scoreboard;
   
   
+    event scoreboard_done;
+
     uvm_analysis_imp_gldnref_export#(bus_transfer, bus_scoreboard) gldnref_export;
     uvm_analysis_imp_monitor_export#(bus_transfer, bus_scoreboard) monitor_export;
     uvm_analysis_imp_driver_export#(bus_transfer, bus_scoreboard) driver_export;
@@ -67,9 +69,12 @@ class bus_scoreboard extends uvm_scoreboard;
         //$display ("SCORE MONITOR");
         //Search in Driver list to see if this was sent
         found=0;
+        pndng_list_empty=1;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found=1;
+                if (pndng_list[i]>0)
+                    pndng_list_empty=0;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
                 foreach (pndng_list[i]) begin
@@ -81,6 +86,10 @@ class bus_scoreboard extends uvm_scoreboard;
         if (found==0) begin
             $display("[NOT FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
             sbd_error=1;
+        end
+        if (pndng_list_empty==1) begin
+            $display("[SCOREABOARD] All transactions got to their destiny");
+            ->scoreboard_done;
         end
     endfunction
 

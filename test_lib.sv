@@ -82,7 +82,7 @@ class test_comun_case extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
-        #500;
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -116,7 +116,7 @@ class max_alter_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
-        #1000;
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -151,6 +151,7 @@ class dest_alter_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -185,6 +186,7 @@ class orig_alter_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -219,7 +221,7 @@ class bursts_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
-        #500;
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -254,6 +256,7 @@ class invalid_dest_test extends bus_base_test;
       
         phase.raise_objection(this);
         seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
@@ -287,7 +290,8 @@ class same_dest_test extends bus_base_test;
     task run_phase(uvm_phase phase);
       
         phase.raise_objection(this);
-        //seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        seq.start(bus_tb0.bus0.master_agent0.sequencer);
+        @(bus_tb0.scoreboard0.scoreboard_done);
         phase.drop_objection(this);
         
 
