@@ -85,7 +85,7 @@ class bus_scoreboard extends uvm_scoreboard;
             sbd_error=1;
         end
         if (pndng_list.size()==0) begin
-            $display("[SCOREABOARD] No pending transactions");
+            $display("[SCOREBOARD] No pending transactions");
             post_check();
         end else begin
             $display("[SCOREBOARD] Pending data to push towards monitor");
