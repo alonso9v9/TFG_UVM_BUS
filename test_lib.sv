@@ -53,7 +53,7 @@ class bus_base_test extends uvm_test;
         `uvm_info(get_type_name(), "** TEST OUTPUT STATUS : UVM TEST PASSED **", UVM_NONE)
         end
         else begin
-        `uvm_error(get_type_name(), "** TEST OUTPUT STATUS : UVM TEST FAIL **")
+        `uvm_error(get_type_name(), "** TEST OUTPUT STATUS : UVM TEST FAIL **", UVM_NONE)
         end
     endfunction
 
