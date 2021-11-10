@@ -86,24 +86,21 @@ class bus_scoreboard extends uvm_scoreboard;
         end
         if (pndng_list.size()==0) begin
             $display("[SCOREABOARD] No pending transactions");
-            ->scoreboard_done;
+            post_check();
         end else begin
             $display("[SCOREBOARD] Pending data to push towards monitor");
         end
     endfunction
     
-    virtual task shutdown_phase(uvm_phase phase);
-        phase.raise_objection(this);
-        `uvm_info(get_name(), "<shutdown_phase> started, objection raised.", UVM_NONE)
-            if (driver_list.size()!=monitor_list.size()) begin
-                sbd_error=1;
-                $display("[SCOREBOARD] Error: driver and monitor transactions mismatch");
-            end else if (!sbd_error)begin
-                $display("[SCOREBOARD] Todas las transecciones completadas con éxito");
-            end
-        phase.drop_objection(this);
-        `uvm_info(get_name(), "<shutdown_phase> finished, objection dropped.", UVM_NONE)
-    endtask: shutdown_phase
+    function post_check();
+        if (driver_list.size()!=monitor_list.size()) begin
+            sbd_error=1;
+            $display("[SCOREBOARD] Error: driver and monitor transactions mismatch");
+        end else if (!sbd_error)begin
+            $display("[SCOREBOARD] Todas las transacciones completadas con éxito");
+        end
+        ->scoreboard_done;
+    endfunction
     
     function void write_driver_export(bus_transfer t);
         driver_list.push_back(t);
