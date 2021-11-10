@@ -215,8 +215,6 @@ class random_sequence extends bus_base_sequence;
       super.new(name);
     endfunction
     
-    
-  
     rand int retardo;
     int iter;
     int burst;
@@ -246,6 +244,8 @@ class random_sequence extends bus_base_sequence;
                         $display("[SEQUENCE] Item sent to driver");
                         `uvm_info(get_type_name(), $sformatf("SEQUENCE item sent"), UVM_HIGH);
                     end
+                end else begin
+                    $display ("Missing Bursts option");
                 end
             end
         end else begin
