@@ -14,7 +14,7 @@
 
 class bus_master_agent extends uvm_agent;
 
-    bus_master_driver driver;
+    bus_master_driver #(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast({8{1'b1}})) driver;
     bus_master_sequencer sequencer;
 
     `uvm_component_utils_begin(bus_master_agent)
@@ -29,7 +29,7 @@ class bus_master_agent extends uvm_agent;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         sequencer = bus_master_sequencer::type_id::create("sequencer", this);
-        driver = bus_master_driver::type_id::create("driver", this);
+        driver = bus_master_driver#(.buses(buses),.bits(bits),.drvrs(drvrs),.broadcast({8{1'b1}}))::type_id::create("driver", this);
     endfunction : build_phase
 
     // connect_phase

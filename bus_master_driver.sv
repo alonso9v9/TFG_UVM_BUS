@@ -12,7 +12,7 @@
 //
 //------------------------------------------------------------------------------
 
-class bus_master_driver #(parameter bits=16,parameter drvrs=4,parameter fif_Size=10, parameter buses =1) extends uvm_driver #(bus_transfer);
+class bus_master_driver #(parameter bits=16,parameter drvrs=4,parameter fif_Size=100, parameter buses =1) extends uvm_driver #(bus_transfer);
 
 	bit [bits-1:0] D_out [buses-1:0][drvrs-1:0][$:fif_Size]; //FIFOS
 	int disp;
