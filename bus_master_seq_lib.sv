@@ -146,7 +146,7 @@ class random_sequence extends bus_base_sequence;
     virtual task body();
         $display("SEQUENCE BODY");
         if ($value$plusargs("ITER=%d",iter))
-            repeat (iter) begin
+            repeat (iter/bus_parameters::drvrs) begin
 
                 for (int i=0; i<bus_parameters::drvrs; ++i) begin
                     `uvm_do_with(req, 
@@ -187,7 +187,7 @@ class random_sequence extends bus_base_sequence;
     virtual task body();
         $display("SEQUENCE BODY");
         if ($value$plusargs("ITER=%d",iter))
-            repeat (iter) begin
+            repeat (iter/bus_parameters::drvrs) begin
                 for (int i=0; i<bus_parameters::drvrs; ++i) begin
                     `uvm_do_with(req, 
                     { req.tipo == trans;
