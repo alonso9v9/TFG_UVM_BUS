@@ -16,7 +16,7 @@
 typedef enum {trans,broadcast,reset} tipo_acc; 
 
 
-class bus_transfer #(parameter bits =16,parameter drvrs=4,parameter broadcast={8{1'b1}}, parameter buses = 1) extends uvm_sequence_item;
+class bus_transfer #(parameter bits=bus_parameters::bits,parameter drvrs=bus_parameters::drvrs,parameter fif_Size=bus_parameters::fif_Size, parameter buses=bus_parameters::buses,parameter broadcast = {8{1'b1}}) extends uvm_sequence_item;
 	rand int retardo;
 	rand bit [bits-1:0] dato;
     rand bit [bits-9:0] payload;
