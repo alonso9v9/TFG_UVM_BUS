@@ -13,7 +13,7 @@
 //
 //------------------------------------------------------------------------------
 
-class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size=100,parameter broadcast={8{1'b1}},parameter buses =1) extends uvm_monitor;
+class bus_slave_monitor #(parameter bits=bus_parameters::bits,parameter drvrs=bus_parameters::drvrs,parameter fif_Size=bus_parameters::fif_Size, parameter buses=bus_parameters::buses,parameter broadcast = {8{1'b1}}) extends uvm_monitor;
 
 
     protected virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif;

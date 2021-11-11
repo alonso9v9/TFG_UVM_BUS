@@ -28,10 +28,10 @@ package bus_pkg;
 
     `include "bus_env.sv"
     
-    typedef bus_master_driver #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) driver;
+    // typedef bus_master_driver #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) driver;
 
-    typedef bus_slave_monitor#(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) monitor;
+    // typedef bus_slave_monitor #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) monitor;
     
-    typedef GoldenReference #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) gldnref;
-    
+    // typedef GoldenReference   #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) gldnref;
+
 endpackage: bus_pkg
