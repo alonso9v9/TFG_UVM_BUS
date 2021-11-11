@@ -102,7 +102,7 @@ class GoldenReference #(parameter bits=bus_parameters::bits,parameter drvrs=bus_
                         //$display("Dato enviado: %h",vif.D_pop[a_i][a_j]);
                         transaction.dato=vif.D_pop[a_i][a_j];
                         transaction.tiempo = $realtime;
-                        transaction.print("GOLDEN");
+                        //transaction.print("GOLDEN");
 
                         dest_i=Destino/drvrs;
                         dest_j=Destino%drvrs;

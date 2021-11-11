@@ -35,6 +35,7 @@ class bus_scoreboard extends uvm_scoreboard;
     int sbd_error = 0;
     int found =0;
     int trans_received=0;
+    real average_delay=0;
 
 
     protected int unsigned m_mem_expected[int unsigned];
@@ -44,7 +45,7 @@ class bus_scoreboard extends uvm_scoreboard;
         `uvm_field_int(disable_scoreboard, UVM_DEFAULT)
         `uvm_field_int(driver_trans, UVM_DEFAULT|UVM_DEC)
         `uvm_field_int(monitor_trans, UVM_DEFAULT|UVM_DEC)
-       // `uvm_field_int(gldn_trans, UVM_DEFAULT|UVM_DEC)
+        `uvm_field_int(average_delay, UVM_DEFAULT|UVM_DEC)
     `uvm_component_utils_end
 
 
@@ -74,12 +75,15 @@ class bus_scoreboard extends uvm_scoreboard;
         t.print ("MONITOR");
         monitor_trans=monitor_list.size();
         found=0;
+        
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
                 found=1;
                 trans_received++;
+                average_delay=(average_delay*(monitor_trans-1)+(t.tiempo-pndng_list[i].tiempo))/monitor_trans;
                 pndng_list.delete(i);
                 $display("[FOUND] t.dato %h,t.Destino %h", t.dato, t.Destino);
+                $display("[AVRG_DELAY] %d", average_delay);
                 break;                
             end
         end
