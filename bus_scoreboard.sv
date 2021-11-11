@@ -114,7 +114,7 @@ class bus_scoreboard extends uvm_scoreboard;
     // report_phase
     virtual function void report_phase(uvm_phase phase);
         `uvm_info(get_type_name(),
-        $sformatf("Reporting scoreboard information...\n%s", this.sprint()), UVM_LOW)
+        $sformatf("Reporting scoreboard information...\n%s", this.sprint()), UVM_HIGH)
     endfunction : report_phase
 
 endclass : bus_scoreboard

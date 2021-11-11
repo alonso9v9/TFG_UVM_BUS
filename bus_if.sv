@@ -7,7 +7,7 @@
 // Interface con el DUT del testbench de un bus paralelo parametrizable
 
 
-interface bus_if #(parameter bits = 16, parameter drvrs = 4, parameter buses = 1);
+interface bus_if #(parameter bits = bus_parameters::bits, parameter drvrs = bus_parameters::drvrs, parameter buses = bus_parameters::buses);
 
   //Signals
 	logic clock;

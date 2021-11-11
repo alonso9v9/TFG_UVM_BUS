@@ -6,7 +6,7 @@
 // Proposito General:
 // Modulo top del testbench de un bus paralelo parametrizable
 
-
+`timescale 1ns/1ps
 
 `include "bus_parameters.sv"
 `include "bus_pkg.sv"
