@@ -35,7 +35,7 @@ class bus_scoreboard extends uvm_scoreboard;
     int sbd_error = 0;
     int found =0;
     int trans_received=0;
-    shortreal average_delay=0;
+    int average_delay=0;
 
 
     protected int unsigned m_mem_expected[int unsigned];
