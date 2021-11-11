@@ -16,8 +16,8 @@ package bus_pkg;
     typedef uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs))) bus_vif_config;
     typedef virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) bus_vif;
 
-    typedef uvm_config_db#(bus_master_driver#(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}}))) driver_config;
-    typedef bus_master_driver #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) driver;
+    //typedef uvm_config_db#(bus_master_driver#(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}}))) driver_config;
+    //typedef bus_master_driver #(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) driver;
 
     typedef uvm_config_db#(bus_slave_monitor#(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}}))) monitor_config;
     typedef bus_slave_monitor#(.buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) monitor;
