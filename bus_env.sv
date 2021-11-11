@@ -15,7 +15,7 @@
 class bus_env extends uvm_env;
 
     // Virtual Interface variable
-    protected virtual interface bus_if vif;
+    protected virtual interface bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif;
 
 	
     bus_master_agent master_agent0;
@@ -32,7 +32,7 @@ class bus_env extends uvm_env;
     // build_phase
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
+        if(!uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)))::get(this, "", "vif", vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
         
         master_agent0 = bus_master_agent::type_id::create("master_agent0", this);

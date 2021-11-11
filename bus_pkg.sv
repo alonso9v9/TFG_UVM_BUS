@@ -13,8 +13,8 @@ package bus_pkg;
 
     `include "uvm_macros.svh"
 
-    typedef uvm_config_db#(virtual bus_if) bus_vif_config;
-    typedef virtual bus_if bus_vif;
+    typedef uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs))) bus_vif_config;
+    typedef virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) bus_vif;
 
     `include "bus_transfer.sv"
 

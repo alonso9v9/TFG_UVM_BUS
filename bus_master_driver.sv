@@ -22,7 +22,7 @@ class bus_master_driver #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 	
 	// The virtual interface used to drive and view HDL signals.
-	protected virtual bus_if vif;
+	protected virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif;
 
 
     uvm_analysis_port #(bus_transfer) item_collected_port;
@@ -47,7 +47,7 @@ class bus_master_driver #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 		super.build_phase(phase);
 
-		if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
+		if(!uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)))::get(this, "", "vif", vif))
 			`uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
 
 	endfunction: build_phase
