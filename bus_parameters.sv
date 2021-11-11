@@ -11,7 +11,7 @@ package bus_parameters;
 
     parameter bits=16;
     parameter drvrs=4;
-    parameter fif_Size=10;
+    parameter fif_Size=10000;
     parameter buses =1;
 
 endpackage:bus_parameters
