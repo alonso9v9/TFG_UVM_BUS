@@ -105,6 +105,8 @@ class GoldenReference #(parameter bits=bus_parameters::bits,parameter drvrs=bus_
 
                         dest_i=Destino/drvrs;
                         dest_j=Destino%drvrs;
+                        $display("dest_i %h, dest_j %h",dest_i, dest_j);
+                        $display("dest_i %h, dest_j %h",a_i, a_j);
                         Reg[dest_i][dest_j].push_back(vif.D_pop[a_i][a_j]);
 
                         //enviar dato recibido a scoreboard 
