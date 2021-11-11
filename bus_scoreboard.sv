@@ -23,7 +23,7 @@ class bus_scoreboard extends uvm_scoreboard;
     uvm_analysis_imp_monitor_export#(bus_transfer, bus_scoreboard) monitor_export;
     uvm_analysis_imp_driver_export#(bus_transfer, bus_scoreboard) driver_export;
 
-    bus_transfer gldnref_list[$];
+    //bus_transfer gldnref_list[$];
     bus_transfer monitor_list[$];
     bus_transfer driver_list[$];
     bus_transfer pndng_list[$];
@@ -31,7 +31,7 @@ class bus_scoreboard extends uvm_scoreboard;
     protected bit disable_scoreboard = 0;
     protected int driver_trans = 0;
     protected int monitor_trans = 0;
-    protected int gldn_trans = 0;
+    //protected int gldn_trans = 0;
     int sbd_error = 0;
     int found =0;
     int trans_received=0;
@@ -44,7 +44,7 @@ class bus_scoreboard extends uvm_scoreboard;
         `uvm_field_int(disable_scoreboard, UVM_DEFAULT)
         `uvm_field_int(driver_trans, UVM_DEFAULT|UVM_DEC)
         `uvm_field_int(monitor_trans, UVM_DEFAULT|UVM_DEC)
-        `uvm_field_int(gldn_trans, UVM_DEFAULT|UVM_DEC)
+       // `uvm_field_int(gldn_trans, UVM_DEFAULT|UVM_DEC)
     `uvm_component_utils_end
 
 
@@ -62,8 +62,8 @@ class bus_scoreboard extends uvm_scoreboard;
 
     // write_gldnref
     function void write_gldnref_export(bus_transfer t);
-        gldnref_list.push_back(t);
-        gldn_trans=gldnref_list.size();
+        //gldnref_list.push_back(t);
+        //gldn_trans=gldnref_list.size();
         t.print ("GLDNREF");
     endfunction
 
