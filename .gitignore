@@ -1,4 +1,3 @@
-*.sh
 *log*
 *simv*
 *daidi*
@@ -8,3 +7,7 @@ salida.vdb/
 ucli.key
 vc_hdrs.h
 verdi_config_file
+*fsdb
+*conf
+*rc
+verdiLog/
