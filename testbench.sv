@@ -21,9 +21,9 @@ module bus_tb_top;
     import bus_parameters::*;
     `include "test_lib.sv" 
 
-    bus_if #(.buses(buses), .bits(bits),.drvrs(drvrs)) vif(); // SystemVerilog Interface
+    bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif(); // SystemVerilog Interface
 
-    prll_bs_gnrtr_n_rbtr #( .buses(buses),.bits(bits),.drvrs(drvrs),.broadcast({8{1'b1}})) dut(
+    prll_bs_gnrtr_n_rbtr #( .buses(bus_parameters::buses),.bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs),.broadcast({8{1'b1}})) dut(
       .clk(vif.clock),
       .reset(vif.reset),
       .pndng(vif.pndng),
@@ -34,7 +34,7 @@ module bus_tb_top;
     );
 
     initial begin
-        uvm_config_db#(virtual bus_if)::set(uvm_root::get(), "*", "vif", vif);
+        uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)))::set(uvm_root::get(), "*", "vif", vif);
         run_test("test_comun_case");
       	
     end

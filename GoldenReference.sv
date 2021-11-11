@@ -6,7 +6,7 @@ class GoldenReference #(parameter bits=16,parameter drvrs=4,parameter fif_Size=1
 
     bit [bits-1:0] Reg [buses-1:0][drvrs-1:0][$]; //FIFOS de salida
     
-    protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
+    protected virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif;
 
     semaphore turn [buses-1:0][drvrs-1:0];
     bit busy;
@@ -38,7 +38,7 @@ class GoldenReference #(parameter bits=16,parameter drvrs=4,parameter fif_Size=1
 
 
     function void build_phase(uvm_phase phase);
-        if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
+        if(!uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)))::get(this, "", "vif", vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
     endfunction: build_phase
 

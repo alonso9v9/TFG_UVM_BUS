@@ -16,7 +16,7 @@
 class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size=100,parameter broadcast={8{1'b1}},parameter buses =1) extends uvm_monitor;
 
 
-    protected virtual bus_if #(.bits(bits),.drvrs(drvrs),.buses(buses)) vif;
+    protected virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)) vif;
     bit [bits-1:0] D_in [buses-1:0][drvrs-1:0][$]; //FIFOS 
     bit checks_enable = 1;
 
@@ -39,7 +39,7 @@ class bus_slave_monitor #(parameter bits=16,parameter drvrs=4,parameter fif_Size
 
 
     function void build_phase(uvm_phase phase);
-        if(!uvm_config_db#(virtual bus_if)::get(this, "", "vif", vif))
+        if(!uvm_config_db#(virtual bus_if #(.buses(bus_parameters::buses), .bits(bus_parameters::bits),.drvrs(bus_parameters::drvrs)))::get(this, "", "vif", vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(),".vif"});
     endfunction: build_phase
 
