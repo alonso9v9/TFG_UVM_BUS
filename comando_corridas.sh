@@ -5,7 +5,7 @@ for bits in {16..32..2}
 	do
 		for seed in  {1..100}
 		do
-			echo -e "package bus_parameters;\nparameter bits=$bits;\nparameter drvrs=$drvrs;\n parameter fif_Size=1000;\nparameter buses=1;\nendpackage:bus_parameters" > bus_parameters.sv
+			echo -e "package bus_parameters;\nparameter bits=$bits;\nparameter drvrs=$drvrs;\nparameter fif_Size=1000;\nparameter buses=1;\nendpackage:bus_parameters" > bus_parameters.sv
 			./comando.sh $seed
 			if $?; then
 				echo -e "\n\n\n\n\nError in run bits=$bits, drvrs=$drvrs"
