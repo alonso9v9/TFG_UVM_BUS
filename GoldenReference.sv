@@ -65,7 +65,7 @@ class GoldenReference #(parameter bits=bus_parameters::bits,parameter drvrs=bus_
                         for (int j=0; j<drvrs; ++j) begin
                             if (vif.pndng[i][j]) begin
                                 turn[i][j].put(1);
-                                $display("Turno dado a %d %d",i,j);
+                                //$display("Turno dado a %d %d",i,j);
                                 busy=1;
                                 break;
                             end
@@ -94,13 +94,14 @@ class GoldenReference #(parameter bits=bus_parameters::bits,parameter drvrs=bus_
                         void'(this.begin_tr(transaction));
                         
                         turn[a_i][a_j].get(1);
-                        $display("Turno recibido %d %d",a_i,a_j);
+                        //$display("Turno recibido %d %d",a_i,a_j);
                         
                         //Mandar dato a destino
                         Destino = vif.D_pop[a_i][a_j][bits-1:bits-8];
 
-                        $display("Dato enviado: %h",vif.D_pop[a_i][a_j]);
+                        //$display("Dato enviado: %h",vif.D_pop[a_i][a_j]);
                         transaction.dato=vif.D_pop[a_i][a_j];
+                        transaction.tiempo = $realtime;
                         transaction.print("GOLDEN");
 
                         dest_i=Destino/drvrs;

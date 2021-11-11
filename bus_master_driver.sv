@@ -103,9 +103,9 @@ class bus_master_driver #(parameter bits=bus_parameters::bits,parameter drvrs=bu
             end
             forever @(posedge vif.pop[a_i][a_j]) begin
                     D_out[a_i][a_j].pop_front;
-                    $display ("POP at %h , %h", a_i,a_j);
-                    $display ("AFter POP %p", D_out[a_i][a_j]);
-                    $display ("SIZE %d",D_out[a_i][a_j].size());
+                    //$display ("POP at %h , %h", a_i,a_j);
+                    //$display ("AFter POP %p", D_out[a_i][a_j]);
+                    //$display ("SIZE %d",D_out[a_i][a_j].size());
                     if(D_out[a_i][a_j].size()==0)      
                         vif.pndng[a_i][a_j]<=0;
             end
@@ -118,7 +118,7 @@ class bus_master_driver #(parameter bits=bus_parameters::bits,parameter drvrs=bu
   	virtual protected task drive_transfer (bus_transfer transaction);
 		
 		
-		$display("[DRIVER] [%g] El driver fue inicializado",$time);
+		//$display("[DRIVER] [%g] El driver fue inicializado",$time);
 		if (transaction.retardo > 0) begin
 			repeat(transaction.retardo) @(posedge vif.clock);
 		end
@@ -140,7 +140,7 @@ class bus_master_driver #(parameter bits=bus_parameters::bits,parameter drvrs=bu
                         end 
                     end
                 end
-                transaction.print("Driver: Transaccion ejecutada");
+                //transaction.print("Driver: Transaccion ejecutada");
             end
 
             trans:begin
@@ -157,13 +157,13 @@ class bus_master_driver #(parameter bits=bus_parameters::bits,parameter drvrs=bu
                 vif.pndng[i][j]<=1;
                 vif.D_pop[i][j]<=D_out[i][j][0];
                 transaction.tiempo = $realtime;
-                transaction.print("Driver: Transaccion ejecutada");
+                //transaction.print("Driver: Transaccion ejecutada");
             end
 
             reset:begin
                 reset_signals();
                 transaction.tiempo = $time;
-                transaction.print("Driver: Transaccion ejecutada");
+                //transaction.print("Driver: Transaccion ejecutada");
             end
 
             default:begin

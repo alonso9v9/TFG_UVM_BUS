@@ -86,9 +86,10 @@ class bus_slave_monitor #(parameter bits=bus_parameters::bits,parameter drvrs=bu
                         transaction.tiempo=$time;
                         transaction.dato=D_in[a_i][a_j].pop_front;
                         transaction.Destino=a_i*drvrs+a_j;
+                        transaction.tiempo = $realtime;
                         item_collected_port.write(transaction);
 
-                        `uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
+                        //`uvm_info(get_type_name(), $sformatf("Transfer collected :\n%s", transaction.sprint()), UVM_FULL)
                     
                         //item_collected_port.write(transaction);
                     end 

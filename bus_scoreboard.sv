@@ -29,9 +29,9 @@ class bus_scoreboard extends uvm_scoreboard;
     bus_transfer pndng_list[$];
 
     protected bit disable_scoreboard = 0;
-    protected int num_writes = 0;
-    protected int num_init_reads = 0;
-    protected int num_uninit_reads = 0;
+    protected int driver_trans = 0;
+    protected int monitor_trans = 0;
+    protected int gldn_trans = 0;
     int sbd_error = 0;
     int found =0;
     int trans_received=0;
@@ -42,9 +42,9 @@ class bus_scoreboard extends uvm_scoreboard;
 
     `uvm_component_utils_begin(bus_scoreboard)
         `uvm_field_int(disable_scoreboard, UVM_DEFAULT)
-        `uvm_field_int(num_writes, UVM_DEFAULT|UVM_DEC)
-        `uvm_field_int(num_init_reads, UVM_DEFAULT|UVM_DEC)
-        `uvm_field_int(num_uninit_reads, UVM_DEFAULT|UVM_DEC)
+        `uvm_field_int(driver_trans, UVM_DEFAULT|UVM_DEC)
+        `uvm_field_int(monitor_trans, UVM_DEFAULT|UVM_DEC)
+        `uvm_field_int(gldn_trans, UVM_DEFAULT|UVM_DEC)
     `uvm_component_utils_end
 
 
@@ -63,6 +63,7 @@ class bus_scoreboard extends uvm_scoreboard;
     // write_gldnref
     function void write_gldnref_export(bus_transfer t);
         gldnref_list.push_back(t);
+        gldn_trans=gldnref_list.size();
         t.print ("GLDNREF");
     endfunction
 
@@ -70,6 +71,8 @@ class bus_scoreboard extends uvm_scoreboard;
         monitor_list.push_back(t);
         //$display ("SCORE MONITOR");
         //Search in Driver list to see if this was sent
+        t.print ("MONITOR");
+        monitor_trans=monitor_list.size();
         found=0;
         foreach (pndng_list[i]) begin
             if (pndng_list[i].dato==t.dato && pndng_list[i].Destino == t.Destino) begin
@@ -108,13 +111,14 @@ class bus_scoreboard extends uvm_scoreboard;
     function void write_driver_export(bus_transfer t);
         driver_list.push_back(t);
         pndng_list.push_back(t);
+        driver_trans=driver_list.size();
         t.print ("DRIVER");
     endfunction
 
     // report_phase
     virtual function void report_phase(uvm_phase phase);
         `uvm_info(get_type_name(),
-        $sformatf("Reporting scoreboard information...\n%s", this.sprint()), UVM_HIGH)
+        $sformatf("Reporting scoreboard information...\n%s", this.sprint()), UVM_LOW)
     endfunction : report_phase
 
 endclass : bus_scoreboard

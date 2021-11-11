@@ -55,7 +55,7 @@ class random_sequence extends bus_base_sequence;
         $display("SEQUENCE BODY");
         if ($value$plusargs("ITER=%d",iter))
             begin
-            $display ("ITER NUM", iter);
+            //$display ("ITER NUM", iter);
             repeat (iter) begin
                 `uvm_do_with(req, 
                 { req.tipo == trans;
