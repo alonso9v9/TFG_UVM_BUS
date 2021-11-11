@@ -1,5 +1,5 @@
 source /mnt/vol_NFS_rh003/estudiantes/archivos_config/synopsys_tools.sh
-for bits in {16..32..4} 
+for bits in {16..28..6} 
 	do
 	for drvrs in 2 4 8 16 	
 	do
